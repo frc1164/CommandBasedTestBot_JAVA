@@ -28,6 +28,15 @@ public class RobotMap {
 	
 	public static double kEncoder = 22.38535;
 	
+// base robot options
+	// Subsystem names
+	/** 
+	 * These are defined in robot/Robot.java
+	 * Chassis = kChassis
+	 * Claw = kClaw
+	 * Winch = kWinch
+	 */
+	
 	
 // controller options
 	public static int remotePort = 0;
