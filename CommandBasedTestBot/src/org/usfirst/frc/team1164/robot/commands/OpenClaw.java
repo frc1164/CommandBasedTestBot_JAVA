@@ -14,7 +14,7 @@ public class OpenClaw extends Command {
 	}
 	
 	public void Execute() {
-		Robot.kClaw.OpenClaw();
+		Robot.kClaw.Open();
 	}
 
 	@Override

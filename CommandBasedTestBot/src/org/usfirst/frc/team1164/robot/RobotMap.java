@@ -39,7 +39,6 @@ public class RobotMap {
 	
 	
 // controller options
-	public static int remotePort = 0;
 	
 // chassis options
 	// victors

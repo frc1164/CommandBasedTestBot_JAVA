@@ -1,16 +1,17 @@
 package org.usfirst.frc.team1164.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Encoder;
+import org.usfirst.frc.team1164.robot.OI;
 import org.usfirst.frc.team1164.robot.RobotMap;
 import org.usfirst.frc.team1164.robot.commands.DriveTankWithJoystick;
+
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 
 
 public class Chassis extends Subsystem {
-	private Joystick Stick;
 	private Victor Right1, Right2, Left1, Left2;
 	private Encoder LeftEncoder, RightEncoder;
 	
@@ -21,7 +22,6 @@ public class Chassis extends Subsystem {
 	}
 	
 	public Chassis() {
-		Stick = new Joystick(RobotMap.remotePort);
 		Left1 = new Victor(RobotMap.CHV_Left_1);
 		Left2 = new Victor(RobotMap.CHV_Left_2);
 		Right1 = new Victor(RobotMap.CHV_Right_1);
@@ -40,8 +40,8 @@ public class Chassis extends Subsystem {
 	}
 	
 	public void DriveStick() {
-		double LeftStick = Stick.getRawAxis(1);
-		double RightStick = Stick.getRawAxis(3);
+		double LeftStick = OI.getJoystick().getRawAxis(1);
+		double RightStick = OI.getJoystick().getRawAxis(3);
 		if (LeftStick < -0.05 || LeftStick > 0.05) {
 			Left1.set(LeftStick);
 			Left2.set(LeftStick);

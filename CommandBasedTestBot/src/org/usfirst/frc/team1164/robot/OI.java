@@ -7,11 +7,29 @@
 
 package org.usfirst.frc.team1164.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc.team1164.robot.commands.CloseClaw;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	public static int remotePort = 0;
+	private static Joystick stick = new Joystick(remotePort);
+	Button button = new JoystickButton(stick, 1);
+
+	public OI() {
+		button.whenPressed(new CloseClaw());
+	}
+	
+	public static Joystick getJoystick() {
+		return stick;
+	}
+	
+	
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.

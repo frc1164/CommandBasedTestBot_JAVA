@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CloseClaw extends Command{
 	
 	
-	public CloseClaw(Claw claw) {
+	public CloseClaw() {
 		requires(Robot.kClaw);
 	}
 	
@@ -17,7 +17,7 @@ public class CloseClaw extends Command{
 	}
 	
 	public void execute() {
-		Robot.kClaw.CloseClaw();
+		Robot.kClaw.Close();
 	}
 	
 	protected boolean isFinished() {

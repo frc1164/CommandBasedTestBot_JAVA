@@ -29,12 +29,12 @@ public class Claw extends Subsystem{
 		
 	}
 	
-	public void CloseClaw() {
+	public void Close() {
 		sol0.set(true);
 		sol1.set(false);
 	}
 	
-	public void OpenClaw() {
+	public void Open() {
 		sol0.set(false);
 		sol1.set(true);
 	}
