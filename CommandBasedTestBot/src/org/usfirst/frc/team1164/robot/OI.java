@@ -7,10 +7,12 @@
 
 package org.usfirst.frc.team1164.robot;
 
+import org.usfirst.frc.team1164.robot.commands.CloseClaw;
+import org.usfirst.frc.team1164.robot.commands.OpenClaw;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import org.usfirst.frc.team1164.robot.commands.CloseClaw;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,10 +21,12 @@ import org.usfirst.frc.team1164.robot.commands.CloseClaw;
 public class OI {
 	public static int remotePort = 0;
 	private static Joystick stick = new Joystick(remotePort);
-	Button button = new JoystickButton(stick, 1);
+	Button buttonOpenClaw = new JoystickButton(stick, 1);
+	Button buttonCloseClaw = new JoystickButton(stick, 2);
 
 	public OI() {
-		button.whenPressed(new CloseClaw());
+		buttonOpenClaw.whenPressed(new OpenClaw());
+		buttonCloseClaw.whenPressed(new CloseClaw());
 	}
 	
 	public static Joystick getJoystick() {

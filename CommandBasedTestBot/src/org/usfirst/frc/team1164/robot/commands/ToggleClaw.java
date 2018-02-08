@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CloseClaw extends Command {
-
-    public CloseClaw() {
+public class ToggleClaw extends Command {
+	private boolean isOpen;
+    public ToggleClaw() {
     	requires(Robot.kClaw);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -17,12 +17,20 @@ public class CloseClaw extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	isOpen = true;
+    	Robot.kClaw.Open();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.kClaw.Close();
-    	System.out.print("Executing closeclaw");
+    	if (isOpen) {
+    		Robot.kClaw.Close();
+    		isOpen = false;
+    	}
+    	else {
+    		Robot.kClaw.Open();
+    		isOpen = true;
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,7 +40,6 @@ public class CloseClaw extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.print("Close Claw Command ended");
     }
 
     // Called when another command which requires one or more of the same

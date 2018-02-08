@@ -11,15 +11,12 @@ public class Claw extends Subsystem{
 	private Compressor ClawCompressor;
 	private Solenoid sol0, sol1;
 	
-	private static final int sol0ID = RobotMap.CL_sol0ID;
-	private static final int sol1ID = RobotMap.CL_sol1ID;
-	private static final int canID = RobotMap.CL_canID;
 	
 
 	public Claw() {
 		ClawCompressor = new Compressor();
-		sol0 = new Solenoid(canID, sol0ID);
-		sol1 = new Solenoid(canID, sol1ID);
+		sol0 = new Solenoid(RobotMap.CL_canID, RobotMap.CL_sol0ID);
+		sol1 = new Solenoid(RobotMap.CL_canID, RobotMap.CL_sol1ID);
 	}
 	
 
@@ -30,13 +27,13 @@ public class Claw extends Subsystem{
 	}
 	
 	public void Close() {
-		sol0.set(true);
-		sol1.set(false);
+		sol0.set(false);
+		sol1.set(true);
 	}
 	
 	public void Open() {
-		sol0.set(false);
-		sol1.set(true);
+		sol0.set(true);
+		sol1.set(false);
 	}
 
 
