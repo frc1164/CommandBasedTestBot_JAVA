@@ -5,9 +5,9 @@ import org.usfirst.frc.team1164.robot.RobotMap;
 import org.usfirst.frc.team1164.robot.commands.DriveTankWithJoystick;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 
@@ -34,6 +34,8 @@ public class Chassis extends Subsystem {
 		
 		LeftEncoder.reset();
 		RightEncoder.reset();
+		LeftEncoder.setDistancePerPulse(RobotMap.kDistancePerPulse);
+		RightEncoder.setDistancePerPulse(RobotMap.kDistancePerPulse);
 		
 		Left1.setInverted(true);
 		Left2.setInverted(true);
@@ -68,20 +70,28 @@ public class Chassis extends Subsystem {
 	
 	public double DriveForward(double TargetDistance, double speed) {
 		double EncoderAvg = (LeftEncoder.getDistance() + RightEncoder.getDistance()) / 2;
-		double inches = EncoderAvg/RobotMap.kEncoder;
-		
-		// required smartdash board info
+		SmartDashboard.putNumber("Left Encoder",LeftEncoder.getDistance());
+		SmartDashboard.putNumber("Right Encoder",RightEncoder.getDistance());
+		SmartDashboard.putNumber("Encoder Avg",EncoderAvg);
 		
 		Right1.set(speed);
 		Right2.set(speed);
 		Left1.set(speed);
 		Left2.set(speed);
 		
-		return inches;
+		return EncoderAvg;
 	}
 	
 	public void ResetEncoders() {
 		LeftEncoder.reset();
 		RightEncoder.reset();
+	}
+	
+	public double GetLeftEncoder() {
+		return LeftEncoder.getDistance();
+	}
+	
+	public double GetRightEncoder() {
+		return RightEncoder.getDistance();
 	}
 }

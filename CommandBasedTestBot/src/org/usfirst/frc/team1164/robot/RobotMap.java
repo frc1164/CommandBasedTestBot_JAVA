@@ -26,7 +26,7 @@ public class RobotMap {
 	public static int rangefinderModule = 1;
 	*/
 	
-	public static double kEncoder = 22.38535;
+	public static double kDistancePerPulse = 0.249364;
 	
 // base robot options
 	// Subsystem names

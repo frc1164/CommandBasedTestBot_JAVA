@@ -1,12 +1,15 @@
 package org.usfirst.frc.team1164.robot.commands;
 
 import org.usfirst.frc.team1164.robot.Robot;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoForward extends Command{
 	private double TargetDistance;
 	private double Speed;
 	private double distance;
+	private static DriverStation DS;
 	
 	public AutoForward(double TargetDistance, double Speed) {
 		requires(Robot.kChassis);
@@ -25,7 +28,7 @@ public class AutoForward extends Command{
 
 	@Override
 	protected boolean isFinished() {
-		return TargetDistance <= distance;
+		return (TargetDistance <= distance || DS.isOperatorControl());
 	}
 	
 	public void end() {

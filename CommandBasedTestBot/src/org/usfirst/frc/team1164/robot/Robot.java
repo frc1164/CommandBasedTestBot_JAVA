@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1164.robot;
 
 import org.usfirst.frc.team1164.robot.commands.AutoForward;
+
 import org.usfirst.frc.team1164.robot.commands.MyAutoCommand;
 import org.usfirst.frc.team1164.robot.subsystems.Chassis;
 import org.usfirst.frc.team1164.robot.subsystems.Claw;
@@ -40,6 +41,8 @@ public class Robot extends TimedRobot {
 	private AutoForward m_defaultAuto;
 	private MyAutoCommand m_myAuto;
 	
+	private Command autoForward;
+	
 	private SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
@@ -52,6 +55,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("Default Auto", m_defaultAuto);
 		m_chooser.addObject("My auto", m_myAuto);
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		autoForward = new AutoForward(100, .25);
 	}
 
 	/**
@@ -95,6 +100,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		
+		if (autoForward != null) {autoForward.start();}
 	}
 
 	/**
@@ -129,5 +136,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		SmartDashboard.putNumber("Left Encoder", kChassis.GetLeftEncoder());
+		SmartDashboard.putNumber("Right Encoder", kChassis.GetRightEncoder());
 	}
 }
