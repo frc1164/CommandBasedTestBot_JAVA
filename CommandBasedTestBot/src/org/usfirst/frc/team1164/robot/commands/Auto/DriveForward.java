@@ -1,15 +1,15 @@
-package org.usfirst.frc.team1164.robot.commands;
+package org.usfirst.frc.team1164.robot.commands.Auto;
 
 import org.usfirst.frc.team1164.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class MyAutoCommand extends Command {
+public class DriveForward extends Command {
 	private double distance;
 	private double speed;
 	
-	public MyAutoCommand(double distance, double speed) {
+	public DriveForward(double distance, double speed) {
 		this.distance = distance;
 		this.speed = speed;
 		requires(Robot.kChassis);
@@ -33,14 +33,11 @@ public class MyAutoCommand extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		double absLeft = Math.abs(Robot.kChassis.GetLeftEncoder());
-		double absRight = Math.abs(Robot.kChassis.GetRightEncoder());
+		double leftEncoder = Robot.kChassis.GetLeftEncoder();
+		double rightEncoder = Robot.kChassis.GetRightEncoder();
 		
-		boolean checkLeft = absLeft >= distance;
-		boolean checkRight = absRight >= distance;
-
-		SmartDashboard.putNumber("AbsLeft", absLeft);
-		SmartDashboard.putNumber("AbsRight", absRight);
+		boolean checkLeft = leftEncoder >= distance || leftEncoder < 0;
+		boolean checkRight = rightEncoder >= distance || leftEncoder < 0;
 		
 		return (checkLeft || checkRight);
 	}

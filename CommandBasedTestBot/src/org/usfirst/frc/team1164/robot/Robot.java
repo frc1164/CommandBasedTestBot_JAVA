@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team1164.robot;
 
-import org.usfirst.frc.team1164.robot.commands.MyAutoCommand;
+import org.usfirst.frc.team1164.robot.commands.Auto.DriveForward;
 import org.usfirst.frc.team1164.robot.subsystems.Chassis;
 import org.usfirst.frc.team1164.robot.subsystems.Claw;
 import org.usfirst.frc.team1164.robot.subsystems.Winch;
@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
 	
 	public static OI m_oi;
 
-	private MyAutoCommand m_myAuto;
+	private DriveForward m_myAuto;
 	
 	
 
@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		
-		m_myAuto = new MyAutoCommand(100, 0.25);
+		m_myAuto = new DriveForward(100, 0.25);
 	}
 
 	/**
