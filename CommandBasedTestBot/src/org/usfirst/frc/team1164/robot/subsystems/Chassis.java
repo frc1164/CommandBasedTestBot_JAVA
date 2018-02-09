@@ -37,50 +37,20 @@ public class Chassis extends Subsystem {
 		LeftEncoder.setDistancePerPulse(RobotMap.kDistancePerPulse);
 		RightEncoder.setDistancePerPulse(RobotMap.kDistancePerPulse);
 		
-		Left1.setInverted(true);
-		Left2.setInverted(true);
+		Right1.setInverted(true);
+		Right2.setInverted(true);
 	}
 	
-	public void DriveStick() {
-		double LeftStick = OI.getJoystick().getRawAxis(1);
-		double RightStick = OI.getJoystick().getRawAxis(3);
-		if (LeftStick < -0.05 || LeftStick > 0.05) {
-			Left1.set(LeftStick);
-			Left2.set(LeftStick);
-		} else {
-			Left1.set(0.0);
-			Left2.set(0.0);
-		}
-		
-		if (RightStick < -0.05 || RightStick > 0.05) {
-			Right1.set(RightStick);
-			Right2.set(RightStick);
-		} else {
-			Right1.set(0.0);
-			Right2.set(0.0);
-		}
-	}
-	
-	public void Brake() {
-		Right1.set(0);
-		Right2.set(0);
-		Left1.set(0);
-		Left2.set(0);
-	}
-	
-	public double DriveForward(double TargetDistance, double speed) {
-		double EncoderAvg = (LeftEncoder.getDistance() + RightEncoder.getDistance()) / 2;
-		SmartDashboard.putNumber("Left Encoder",LeftEncoder.getDistance());
-		SmartDashboard.putNumber("Right Encoder",RightEncoder.getDistance());
-		SmartDashboard.putNumber("Encoder Avg",EncoderAvg);
-		
-		Right1.set(speed);
-		Right2.set(speed);
+	public void setLeftMotorSpeed(double speed) {
 		Left1.set(speed);
 		Left2.set(speed);
-		
-		return EncoderAvg;
 	}
+	
+	public void setRightMotorSpeed(double speed) {
+		Right1.set(speed);
+		Right2.set(speed);
+	}
+	
 	
 	public void ResetEncoders() {
 		LeftEncoder.reset();
