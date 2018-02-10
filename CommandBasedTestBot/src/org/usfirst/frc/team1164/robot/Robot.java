@@ -7,15 +7,21 @@
 
 package org.usfirst.frc.team1164.robot;
 
+import org.usfirst.frc.team1164.robot.commands.Auto.MidSwitch;
+import org.usfirst.frc.team1164.robot.commands.Auto.AutoRun;
 import org.usfirst.frc.team1164.robot.commands.Auto.DriveForward;
+import org.usfirst.frc.team1164.robot.commands.Auto.ScoreScale;
+import org.usfirst.frc.team1164.robot.commands.Auto.ScoreSwitch;
 import org.usfirst.frc.team1164.robot.subsystems.Chassis;
 import org.usfirst.frc.team1164.robot.subsystems.Claw;
 import org.usfirst.frc.team1164.robot.subsystems.Winch;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 
 /**
@@ -33,19 +39,13 @@ public class Robot extends TimedRobot {
 	
 	public static OI m_oi;
 
-<<<<<<< HEAD
-	private DriveForward m_myAuto;
+//	private Command m_autonomousCommand;
 	
+//	private Command autoForward;
+	private Command autoCommand;
 	
-=======
-	private Command m_autonomousCommand;
-	
-	private Command autoForward;
 	private int mode = 1;
 	private SendableChooser<Integer> m_chooser = new SendableChooser<>();
-//	private SendableChooser chooser;
-
->>>>>>> d2c4f125aeed27857bfecb7375087cb4834d36e1
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -54,15 +54,15 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-<<<<<<< HEAD
-=======
+
 		m_chooser.addDefault("Position 1", 1);
 		m_chooser.addObject("Position 2", 2);
 		m_chooser.addObject("Position 3", 3);
+		m_chooser.addObject("Testing", 4);
 		SmartDashboard.putData("Positions", m_chooser);
->>>>>>> d2c4f125aeed27857bfecb7375087cb4834d36e1
+
 		
-		m_myAuto = new DriveForward(100, 0.25);
+//		m_myAuto = new DriveForward(100, 0.25);
 	}
 
 	/**
@@ -93,10 +93,56 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-<<<<<<< HEAD
-=======
+
 		mode = m_chooser.getSelected();
->>>>>>> d2c4f125aeed27857bfecb7375087cb4834d36e1
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+		if (mode == 1) {
+			if(gameData.charAt(0) == 'L') {
+				SmartDashboard.putString("AutoCommand", "Score Switch Right");
+				autoCommand = new ScoreSwitch(ScoreSwitch.RIGHT);
+			} 	
+			else if (gameData.charAt(1) == 'L') {
+				SmartDashboard.putString("AutoCommand", "Score Scale Right");
+				autoCommand = new ScoreScale(ScoreScale.RIGHT);
+			} 
+			else {
+				SmartDashboard.putString("AutoCommand", "AutoRun");
+				autoCommand = new AutoRun();
+			}
+		}
+		else if (mode == 2) {
+			if(gameData.charAt(0) == 'R'){
+				SmartDashboard.putString("AutoCommand", "MidSwitch");
+				autoCommand = new MidSwitch();
+			}
+			else {
+				SmartDashboard.putString("AutoCommand", "AutoRun");
+				autoCommand = new AutoRun();
+			}
+		}
+		else if (mode == 3) {
+			if(gameData.charAt(0) == 'R') {
+				SmartDashboard.putString("AutoCommand", "Score Switch Left");
+				autoCommand = new ScoreSwitch(ScoreSwitch.LEFT);
+			} 
+			else if (gameData.charAt(1) == 'R') {
+				SmartDashboard.putString("AutoCommand", "Score Scale Left");
+				autoCommand = new ScoreScale (ScoreScale.LEFT);
+			} 
+			else {
+				SmartDashboard.putString("AutoCommand", "AutoRun");
+				autoCommand = new AutoRun();
+			}
+		}
+		else {
+			autoCommand = new DriveForward(150, 0.5);
+		}
+
+		if (autoCommand != null) {
+			autoCommand.start();
+		}
+	}
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -108,42 +154,9 @@ public class Robot extends TimedRobot {
 		if (m_myAuto != null) {
 			m_myAuto.start();
 		}
-<<<<<<< HEAD
-=======
 		
 		if (autoForward != null) {autoForward.start();} */
-		if (mode == 1) {
-			if(gameData[0] == 'L') {
-				ScoreSwitch(false);
-			} 	else if (gameData[1] == 'L'){
-				ScoreScale(false);
-				} else{
-				AutoRun();
-				}
-		}else if (mode == 2){
-				if(gameData[0] == 'R'){
-					MidSwitch();
-				} else {
-					AutoRun();
-				}
-		}
-		else {
-			if(gameData[0] == 'R') {
-				ScoreSwitch(true);
-			} else if (gameData[1] == 'R'){
-				ScoreScale (true);
-			} else{
-				AutoRun();
-			}
-		}
-
-		m_autonomousCommand = m_chooser.GetSelected();
-
-		if (m_autonomousCommand != nullptr) {
-			m_autonomousCommand->Start();
-		}
->>>>>>> d2c4f125aeed27857bfecb7375087cb4834d36e1
-	}
+	
 
 	/**
 	 * This function is called periodically during autonomous.
@@ -159,9 +172,9 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_myAuto != null) {
-			m_myAuto.cancel();
-		}
+	//	if (m_myAuto != null) {
+	//		m_myAuto.cancel();
+	//	}
 	}
 
 	/**
