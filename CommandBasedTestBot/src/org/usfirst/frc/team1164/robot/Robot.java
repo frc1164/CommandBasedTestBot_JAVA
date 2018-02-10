@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1164.robot;
 
 import org.usfirst.frc.team1164.robot.commands.Auto.MidSwitch;
+import org.usfirst.frc.team1164.logic.autoDecissionMattrix;
 import org.usfirst.frc.team1164.robot.commands.Auto.AutoRun;
 import org.usfirst.frc.team1164.robot.commands.Auto.DriveForward;
 import org.usfirst.frc.team1164.robot.commands.Auto.ScoreScale;
@@ -97,47 +98,7 @@ public class Robot extends TimedRobot {
 		mode = m_chooser.getSelected();
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
-		if (mode == 1) {
-			if(gameData.charAt(0) == 'L') {
-				SmartDashboard.putString("AutoCommand", "Score Switch Right");
-				autoCommand = new ScoreSwitch(ScoreSwitch.RIGHT);
-			} 	
-			else if (gameData.charAt(1) == 'L') {
-				SmartDashboard.putString("AutoCommand", "Score Scale Right");
-				autoCommand = new ScoreScale(ScoreScale.RIGHT);
-			} 
-			else {
-				SmartDashboard.putString("AutoCommand", "AutoRun");
-				autoCommand = new AutoRun();
-			}
-		}
-		else if (mode == 2) {
-			if(gameData.charAt(0) == 'R'){
-				SmartDashboard.putString("AutoCommand", "MidSwitch");
-				autoCommand = new MidSwitch();
-			}
-			else {
-				SmartDashboard.putString("AutoCommand", "AutoRun");
-				autoCommand = new AutoRun();
-			}
-		}
-		else if (mode == 3) {
-			if(gameData.charAt(0) == 'R') {
-				SmartDashboard.putString("AutoCommand", "Score Switch Left");
-				autoCommand = new ScoreSwitch(ScoreSwitch.LEFT);
-			} 
-			else if (gameData.charAt(1) == 'R') {
-				SmartDashboard.putString("AutoCommand", "Score Scale Left");
-				autoCommand = new ScoreScale (ScoreScale.LEFT);
-			} 
-			else {
-				SmartDashboard.putString("AutoCommand", "AutoRun");
-				autoCommand = new AutoRun();
-			}
-		}
-		else {
-			autoCommand = new DriveForward(150, 0.5);
-		}
+		autoCommand = autoDecissionMattrix.decide(mode, gameData);
 
 		if (autoCommand != null) {
 			autoCommand.start();
