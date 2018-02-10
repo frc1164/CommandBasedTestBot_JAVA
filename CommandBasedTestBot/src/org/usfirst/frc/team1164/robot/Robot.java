@@ -33,9 +33,19 @@ public class Robot extends TimedRobot {
 	
 	public static OI m_oi;
 
+<<<<<<< HEAD
 	private DriveForward m_myAuto;
 	
 	
+=======
+	private Command m_autonomousCommand;
+	
+	private Command autoForward;
+	private int mode = 1;
+	private SendableChooser<Integer> m_chooser = new SendableChooser<>();
+//	private SendableChooser chooser;
+
+>>>>>>> d2c4f125aeed27857bfecb7375087cb4834d36e1
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -44,6 +54,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
+<<<<<<< HEAD
+=======
+		m_chooser.addDefault("Position 1", 1);
+		m_chooser.addObject("Position 2", 2);
+		m_chooser.addObject("Position 3", 3);
+		SmartDashboard.putData("Positions", m_chooser);
+>>>>>>> d2c4f125aeed27857bfecb7375087cb4834d36e1
 		
 		m_myAuto = new DriveForward(100, 0.25);
 	}
@@ -76,18 +93,56 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+<<<<<<< HEAD
+=======
+		mode = m_chooser.getSelected();
+>>>>>>> d2c4f125aeed27857bfecb7375087cb4834d36e1
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
 
 		// schedule the autonomous command (example)
 		if (m_myAuto != null) {
 			m_myAuto.start();
 		}
+<<<<<<< HEAD
+=======
+		
+		if (autoForward != null) {autoForward.start();} */
+		if (mode == 1) {
+			if(gameData[0] == 'L') {
+				ScoreSwitch(false);
+			} 	else if (gameData[1] == 'L'){
+				ScoreScale(false);
+				} else{
+				AutoRun();
+				}
+		}else if (mode == 2){
+				if(gameData[0] == 'R'){
+					MidSwitch();
+				} else {
+					AutoRun();
+				}
+		}
+		else {
+			if(gameData[0] == 'R') {
+				ScoreSwitch(true);
+			} else if (gameData[1] == 'R'){
+				ScoreScale (true);
+			} else{
+				AutoRun();
+			}
+		}
+
+		m_autonomousCommand = m_chooser.GetSelected();
+
+		if (m_autonomousCommand != nullptr) {
+			m_autonomousCommand->Start();
+		}
+>>>>>>> d2c4f125aeed27857bfecb7375087cb4834d36e1
 	}
 
 	/**
