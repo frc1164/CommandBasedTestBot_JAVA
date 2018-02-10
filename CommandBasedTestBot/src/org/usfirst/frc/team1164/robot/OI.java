@@ -23,7 +23,7 @@ public class OI {
 	private static Joystick stick = new Joystick(remotePort);
 	Button buttonOpenClaw = new JoystickButton(stick, 1);
 	Button buttonCloseClaw = new JoystickButton(stick, 2);
-
+	
 	public OI() {
 		buttonOpenClaw.whenPressed(new OpenClaw());
 		buttonCloseClaw.whenPressed(new CloseClaw());

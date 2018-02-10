@@ -7,19 +7,21 @@
 
 package org.usfirst.frc.team1164.robot;
 
-import org.usfirst.frc.team1164.robot.commands.AutoForward;
-
-import org.usfirst.frc.team1164.robot.commands.MyAutoCommand;
+import org.usfirst.frc.team1164.robot.commands.Auto.MidSwitch;
+import org.usfirst.frc.team1164.robot.commands.Auto.AutoRun;
+import org.usfirst.frc.team1164.robot.commands.Auto.DriveForward;
+import org.usfirst.frc.team1164.robot.commands.Auto.ScoreScale;
+import org.usfirst.frc.team1164.robot.commands.Auto.ScoreSwitch;
 import org.usfirst.frc.team1164.robot.subsystems.Chassis;
 import org.usfirst.frc.team1164.robot.subsystems.Claw;
 import org.usfirst.frc.team1164.robot.subsystems.Winch;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 
 /**
@@ -37,13 +39,13 @@ public class Robot extends TimedRobot {
 	
 	public static OI m_oi;
 
-	private Command m_autonomousCommand;
-	private AutoForward m_defaultAuto;
-	private MyAutoCommand m_myAuto;
+//	private Command m_autonomousCommand;
 	
-	private Command autoForward;
+//	private Command autoForward;
+	private Command autoCommand;
 	
-	private SendableChooser<Command> m_chooser = new SendableChooser<>();
+	private int mode = 1;
+	private SendableChooser<Integer> m_chooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -52,11 +54,15 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", m_defaultAuto);
-		m_chooser.addObject("My auto", m_myAuto);
-		SmartDashboard.putData("Auto mode", m_chooser);
+
+		m_chooser.addDefault("Position 1", 1);
+		m_chooser.addObject("Position 2", 2);
+		m_chooser.addObject("Position 3", 3);
+		m_chooser.addObject("Testing", 4);
+		SmartDashboard.putData("Positions", m_chooser);
+
 		
-		autoForward = new AutoForward(100, .25);
+//		m_myAuto = new DriveForward(100, 0.25);
 	}
 
 	/**
@@ -87,22 +93,70 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+
+		mode = m_chooser.getSelected();
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		
+		if (mode == 1) {
+			if(gameData.charAt(0) == 'L') {
+				SmartDashboard.putString("AutoCommand", "Score Switch Right");
+				autoCommand = new ScoreSwitch(ScoreSwitch.RIGHT);
+			} 	
+			else if (gameData.charAt(1) == 'L') {
+				SmartDashboard.putString("AutoCommand", "Score Scale Right");
+				autoCommand = new ScoreScale(ScoreScale.RIGHT);
+			} 
+			else {
+				SmartDashboard.putString("AutoCommand", "AutoRun");
+				autoCommand = new AutoRun();
+			}
+		}
+		else if (mode == 2) {
+			if(gameData.charAt(0) == 'R'){
+				SmartDashboard.putString("AutoCommand", "MidSwitch");
+				autoCommand = new MidSwitch();
+			}
+			else {
+				SmartDashboard.putString("AutoCommand", "AutoRun");
+				autoCommand = new AutoRun();
+			}
+		}
+		else if (mode == 3) {
+			if(gameData.charAt(0) == 'R') {
+				SmartDashboard.putString("AutoCommand", "Score Switch Left");
+				autoCommand = new ScoreSwitch(ScoreSwitch.LEFT);
+			} 
+			else if (gameData.charAt(1) == 'R') {
+				SmartDashboard.putString("AutoCommand", "Score Scale Left");
+				autoCommand = new ScoreScale (ScoreScale.LEFT);
+			} 
+			else {
+				SmartDashboard.putString("AutoCommand", "AutoRun");
+				autoCommand = new AutoRun();
+			}
+		}
+		else {
+			autoCommand = new DriveForward(150, 0.5);
+		}
+
+		if (autoCommand != null) {
+			autoCommand.start();
+		}
+	}
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
 
 		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
+		if (m_myAuto != null) {
+			m_myAuto.start();
 		}
 		
-		if (autoForward != null) {autoForward.start();}
-	}
+		if (autoForward != null) {autoForward.start();} */
+	
 
 	/**
 	 * This function is called periodically during autonomous.
@@ -118,9 +172,9 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
-		}
+	//	if (m_myAuto != null) {
+	//		m_myAuto.cancel();
+	//	}
 	}
 
 	/**
