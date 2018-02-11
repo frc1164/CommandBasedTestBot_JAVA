@@ -26,6 +26,8 @@ public class RobotMap {
 	public static int rangefinderModule = 1;
 	*/
 	
+	public static final double speedReducer = 1;
+	
 	public static double kDistancePerPulse = 0.249364;
 	
 // base robot options
@@ -47,6 +49,9 @@ public class RobotMap {
 	
 	public static int CHV_Right_1 = 1;
 	public static int CHV_Right_2 = 4;
+	
+	public static boolean CHV_Right_Invert = false;
+	public static boolean CHV_Left_Invert = true;
 	
 	// encoders
 	public static int CHE_Left_channelA = 0;

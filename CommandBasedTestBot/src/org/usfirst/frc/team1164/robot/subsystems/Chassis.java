@@ -48,21 +48,24 @@ public class Chassis extends Subsystem {
 		LeftEncoder.setDistancePerPulse(RobotMap.kDistancePerPulse);
 		RightEncoder.setDistancePerPulse(RobotMap.kDistancePerPulse);
 		
-		Right1.setInverted(true);
-		Right2.setInverted(true);
+		Right1.setInverted(RobotMap.CHV_Right_Invert);
+		Right2.setInverted(RobotMap.CHV_Right_Invert);
+		
+		Left1.setInverted(RobotMap.CHV_Left_Invert);
+		Left2.setInverted(RobotMap.CHV_Left_Invert);
 		
 		Navx.reset();
 		
 	}
 	
 	public void setLeftMotorSpeed(double speed) {
-		Left1.set(speed);
-		Left2.set(speed);
+		Left1.set(speed*RobotMap.speedReducer);
+		Left2.set(speed*RobotMap.speedReducer);
 	}
 	
 	public void setRightMotorSpeed(double speed) {
-		Right1.set(speed);
-		Right2.set(speed);
+		Right1.set(speed*RobotMap.speedReducer);
+		Right2.set(speed*RobotMap.speedReducer);
 	}
 	
 	
