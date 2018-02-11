@@ -3,6 +3,8 @@ package org.usfirst.frc.team1164.robot.subsystems;
 import org.usfirst.frc.team1164.robot.OI;
 import org.usfirst.frc.team1164.robot.RobotMap;
 import org.usfirst.frc.team1164.robot.commands.DriveTankWithJoystick;
+import org.usfirst.frc.team1164.robot.commands.CustomDriveWithXbox;
+
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;
@@ -23,7 +25,7 @@ public class Chassis extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new DriveTankWithJoystick());
+		setDefaultCommand(new CustomDriveWithXbox());
 	}
 	
 	public Chassis() {
@@ -92,5 +94,14 @@ public class Chassis extends Subsystem {
 		Right2.set(0);
 		Left1.set(0);
 		Left2.set(0);
+	}
+	
+	public void DriveMotors(double[] Motors) {
+		Right1.set(Motors[0]);
+		Right2.set(Motors[1]);
+		Left1.set(Motors[2]);
+		Left2.set(Motors[3]);
+
+		
 	}
 }

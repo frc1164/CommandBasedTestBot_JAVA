@@ -42,6 +42,12 @@ public class RobotMap {
 	
 // controller options
 	
+	public static final int LTriggerAxis = 2;
+	public static final int RTriggerAxis = 3;
+	public static final int LAxis = 0;
+	public static final int RAxis = 4;
+
+	
 // chassis options
 	// victors
 	public static int CHV_Left_1 = 2;
@@ -50,8 +56,8 @@ public class RobotMap {
 	public static int CHV_Right_1 = 1;
 	public static int CHV_Right_2 = 4;
 	
-	public static boolean CHV_Right_Invert = false;
-	public static boolean CHV_Left_Invert = true;
+	public static boolean CHV_Right_Invert = true;
+	public static boolean CHV_Left_Invert = false;
 	
 	// encoders
 	public static int CHE_Left_channelA = 0;
