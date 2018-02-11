@@ -7,12 +7,8 @@
 
 package org.usfirst.frc.team1164.robot;
 
-import org.usfirst.frc.team1164.robot.commands.Auto.MidSwitch;
 import org.usfirst.frc.team1164.logic.autoDecissionMattrix;
-import org.usfirst.frc.team1164.robot.commands.Auto.AutoRun;
-import org.usfirst.frc.team1164.robot.commands.Auto.DriveForward;
-import org.usfirst.frc.team1164.robot.commands.Auto.ScoreScale;
-import org.usfirst.frc.team1164.robot.commands.Auto.ScoreSwitch;
+import org.usfirst.frc.team1164.robot.commands.Auto.AutoTurn;
 import org.usfirst.frc.team1164.robot.subsystems.Chassis;
 import org.usfirst.frc.team1164.robot.subsystems.Claw;
 import org.usfirst.frc.team1164.robot.subsystems.Winch;
@@ -43,7 +39,9 @@ public class Robot extends TimedRobot {
 //	private Command m_autonomousCommand;
 	
 //	private Command autoForward;
-	private Command autoCommand;
+	//private Command autoCommand;
+	private Command autocommand;
+	
 	
 	private int mode = 1;
 	private SendableChooser<Integer> m_chooser = new SendableChooser<>();
@@ -63,7 +61,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Positions", m_chooser);
 
 		
-//		m_myAuto = new DriveForward(100, 0.25);
 	}
 
 	/**
@@ -98,25 +95,14 @@ public class Robot extends TimedRobot {
 		mode = m_chooser.getSelected();
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
-		autoCommand = autoDecissionMattrix.decide(mode, gameData);
-
-		if (autoCommand != null) {
-			autoCommand.start();
-		}
-	}
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-
-		// schedule the autonomous command (example)
-		if (m_myAuto != null) {
-			m_myAuto.start();
+		autocommand = autoDecissionMattrix.decide(mode, gameData);
+		//autocommand = new AutoTurn(90, 0.25);
+		
+		if (autocommand != null) {
+			autocommand.start();
 		}
 		
-		if (autoForward != null) {autoForward.start();} */
+	}
 	
 
 	/**
@@ -133,9 +119,9 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-	//	if (m_myAuto != null) {
-	//		m_myAuto.cancel();
-	//	}
+		if (autocommand != null) {
+			autocommand.cancel();
+		}
 	}
 
 	/**
