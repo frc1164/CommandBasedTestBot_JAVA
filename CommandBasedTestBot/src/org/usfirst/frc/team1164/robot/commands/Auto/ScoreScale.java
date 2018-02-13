@@ -12,14 +12,14 @@ public class ScoreScale extends CommandGroup {
 	
     public ScoreScale(boolean side) {
     	if (side == RIGHT) {
-	    	addSequential(new DriveForward(365.76, .5));
-	    	addSequential(new AutoTurn(45.0, .25));
+	    	addSequential(new DriveForward(365.76, .25));
+	    	addSequential(new AutoTurn(45.0, .1));
 	    	addSequential(new OpenClaw());
     	}
     	else
     	{
-    		addSequential(new DriveForward(365.76, .5));
-    		addSequential(new AutoTurn(-45.0, .25));
+    		addSequential(new DriveForward(365.76, .25));
+    		addSequential(new AutoTurn(-45.0, .1));
     		addSequential(new OpenClaw());
     	}
     	

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class MidSwitch extends CommandGroup {
 
     public MidSwitch() {
-    	addSequential (new DriveForward(100, .5));
+    	addSequential (new DriveForward(100, .25));
     	addSequential (new OpenClaw());
         // Add Commands here:
         // e.g. addSequential(new Command1());

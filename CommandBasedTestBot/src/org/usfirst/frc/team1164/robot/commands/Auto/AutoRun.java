@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoRun extends CommandGroup {
 
     public AutoRun() {
-    	addSequential (new DriveForward(100, .5));
+    	addSequential (new DriveForward(100, .25));
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
