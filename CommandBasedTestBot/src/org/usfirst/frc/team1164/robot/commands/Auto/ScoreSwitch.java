@@ -1,5 +1,5 @@
 package org.usfirst.frc.team1164.robot.commands.Auto;
-
+import org.usfirst.frc.team1164.robot.commands.Auto.AutoTurn;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import org.usfirst.frc.team1164.robot.commands.OpenClaw;
@@ -13,13 +13,13 @@ public class ScoreSwitch extends CommandGroup {
 	
     public ScoreSwitch(boolean side) {
     	if (side == RIGHT) {
-    		addSequential(new DriveForward(153, .5));
-   // 		addSequential(new Turn(-45));
+    		addSequential(new DriveForward(731.52, .5));
+    		addSequential(new AutoTurn(45.0,.25));
     		addSequential(new OpenClaw());
     	}
     	else {
-    		addSequential(new DriveForward(153, .5));
-   // 		addSequential(new Turn(45));
+    		addSequential(new DriveForward(731.52, .5));
+    		addSequential(new AutoTurn(-45.0, .25));
     		addSequential(new OpenClaw());
     	}
         // Add Commands here:
