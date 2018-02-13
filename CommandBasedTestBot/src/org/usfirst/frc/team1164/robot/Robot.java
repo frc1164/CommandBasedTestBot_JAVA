@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.CameraServer;
 
 
 /**
@@ -59,6 +60,9 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Position 3", 3);
 		m_chooser.addObject("Testing", 4);
 		SmartDashboard.putData("Positions", m_chooser);
+		
+		CameraServer Camera = CameraServer.getInstance();
+		Camera.addAxisCamera("10.11.64.13");
 
 		
 	}
@@ -139,5 +143,6 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 		SmartDashboard.putNumber("Left Encoder", kChassis.GetLeftEncoder());
 		SmartDashboard.putNumber("Right Encoder", kChassis.GetRightEncoder());
+		
 	}
 }
