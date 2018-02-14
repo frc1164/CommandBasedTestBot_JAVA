@@ -27,13 +27,13 @@ public class AutoTurn extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.kChassis.ResetNavx();
+    	Robot.kChassis.resetNavx();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	SmartDashboard.putNumber("Navx Angle", Robot.kChassis.GetNavxAngle());
+    	SmartDashboard.putNumber("Navx Angle", Robot.kChassis.getNavxAngle());
     	
     	if (TurnAngle > 0) {
     		
@@ -53,14 +53,14 @@ public class AutoTurn extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	//The navx returns opposite direction of intented
-    	double currentAngle = -Robot.kChassis.GetNavxAngle();
+    	double currentAngle = -Robot.kChassis.getNavxAngle();
         if (this.TurnAngle > 0 && this.TurnAngle <= currentAngle) {
         	
         	//checks if target angle is positive.
         	
         	//checks if the positive value of the current angle is greater than the positive value of the target angle, 
         	//indicating it has turned a sufficient amount
-        	Robot.kChassis.Brake();
+        	Robot.kChassis.brake();
         	
         	return true;
         }
@@ -71,7 +71,7 @@ public class AutoTurn extends Command {
         	//checks if the negative value of the current angle is less than the negative value of the target angle, 
         	//indicating it has turned a sufficient amount
         	
-        	Robot.kChassis.Brake();
+        	Robot.kChassis.brake();
         	
         	return true;
         }

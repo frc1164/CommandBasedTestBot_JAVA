@@ -13,12 +13,12 @@ public class ScoreSwitch extends CommandGroup {
 	
     public ScoreSwitch(boolean side) {
     	if (side == RIGHT) {
-    		addSequential(new DriveForward(731.52, .5));
+    		addSequential(new DriveForward(731.52));
     		addSequential(new AutoTurn(45.0,.25));
     		addSequential(new OpenClaw());
     	}
     	else {
-    		addSequential(new DriveForward(731.52, .5));
+    		addSequential(new DriveForward(731.52));
     		addSequential(new AutoTurn(-45.0, .25));
     		addSequential(new OpenClaw());
     	}

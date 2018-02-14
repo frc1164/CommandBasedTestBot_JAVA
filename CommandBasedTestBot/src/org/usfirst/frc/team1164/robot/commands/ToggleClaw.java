@@ -18,17 +18,17 @@ public class ToggleClaw extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	isOpen = true;
-    	Robot.kClaw.Open();
+    	Robot.kClaw.open();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (isOpen) {
-    		Robot.kClaw.Close();
+    		Robot.kClaw.close();
     		isOpen = false;
     	}
     	else {
-    		Robot.kClaw.Open();
+    		Robot.kClaw.open();
     		isOpen = true;
     	}
     }

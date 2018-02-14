@@ -137,7 +137,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		SmartDashboard.putNumber("Left Encoder", kChassis.GetLeftEncoder());
-		SmartDashboard.putNumber("Right Encoder", kChassis.GetRightEncoder());
+		SmartDashboard.putNumber("Left Encoder", kChassis.getLeftEncoder());
+		SmartDashboard.putNumber("Right Encoder", kChassis.getRightEncoder());
 	}
 }

@@ -1,16 +1,15 @@
 package org.usfirst.frc.team1164.robot.subsystems;
 
-import org.usfirst.frc.team1164.robot.OI;
 import org.usfirst.frc.team1164.robot.RobotMap;
 import org.usfirst.frc.team1164.robot.commands.DriveTankWithJoystick;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.SPI;
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.DriverStation;
 
 
 
@@ -19,6 +18,8 @@ public class Chassis extends Subsystem {
 	private Victor Right1, Right2, Left1, Left2;
 	private Encoder LeftEncoder, RightEncoder;
 	private AHRS Navx;
+	
+	
 	
 
 	@Override
@@ -66,25 +67,25 @@ public class Chassis extends Subsystem {
 	}
 	
 	
-	public void ResetEncoders() {
+	public void resetEncoders() {
 		LeftEncoder.reset();
 		RightEncoder.reset();
 	}
 	
-	public double GetLeftEncoder() {
+	public double getLeftEncoder() {
 		return LeftEncoder.getDistance();
 	}
 	
-	public double GetRightEncoder() {
+	public double getRightEncoder() {
 		return RightEncoder.getDistance();
 	}
-	public double GetNavxAngle() {
+	public double getNavxAngle() {
 		return Navx.getAngle();
 	}
-	public void ResetNavx() {
+	public void resetNavx() {
 		Navx.reset();
 	}
-	public void Brake() {
+	public void brake() {
 		Right1.set(0);
 		Right2.set(0);
 		Left1.set(0);

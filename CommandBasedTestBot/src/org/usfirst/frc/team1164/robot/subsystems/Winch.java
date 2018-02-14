@@ -23,7 +23,7 @@ public class Winch extends Subsystem {
 	}
 	
 	
-	public void DriveWinch() {
+	public void driveWinch() {
 		double StickValue = Stick.getRawAxis(2);
 		
 		if (OI.getJoystick().getRawButton(2)) {

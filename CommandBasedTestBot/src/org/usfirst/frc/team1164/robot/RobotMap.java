@@ -26,7 +26,8 @@ public class RobotMap {
 	public static int rangefinderModule = 1;
 	*/
 	
-	public static double kDistancePerPulse = 0.249364;
+	public static final double kDistancePerPulse = 0.249364;
+	public static final double timeFrame = 0.002; //seconds
 	
 // base robot options
 	// Subsystem names
@@ -36,6 +37,9 @@ public class RobotMap {
 	 * Claw = kClaw
 	 * Winch = kWinch
 	 */
+	
+	public static final double maxAcceleration = 2;
+	public static final double maxVelocity = 2;
 	
 	
 // controller options
