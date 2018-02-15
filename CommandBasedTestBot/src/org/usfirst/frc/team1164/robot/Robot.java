@@ -61,7 +61,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Testing", 4);
 		SmartDashboard.putData("Positions", m_chooser);
 		
-		CameraServer.getInstance().addAxisCamera("10.11.64.13");
+		CameraServer Camera = CameraServer.getInstance();
+		Camera.addAxisCamera("10.11.64.13");
 
 		
 	}
@@ -142,5 +143,6 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 		SmartDashboard.putNumber("Left Encoder", kChassis.GetLeftEncoder());
 		SmartDashboard.putNumber("Right Encoder", kChassis.GetRightEncoder());
+		
 	}
 }
