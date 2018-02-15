@@ -90,4 +90,24 @@ public class Chassis extends Subsystem {
 		Left1.set(0);
 		Left2.set(0);
 	}
+	
+	/* a function Mixer that accepts the parameters straight and turn (doubles), and left and right
+	 * (double objects). This mixer */
+	public double Mixer(double straight, double turn, Double left, Double right) {
+		left = turn + straight;
+		right = -turn + straight;
+		if (left > 1) {
+			right = right - (left - 1);
+			left = 1.0;
+		} else if (left < -1) {
+			right = right - (left + 1);
+			left = -1.0;
+		} else if (right > 1) {
+			left = left - (right -1);
+			right = 1.0;
+		} else {
+			left = left - (right +1);
+			right = -1.0;
+		}
+	}
 }
