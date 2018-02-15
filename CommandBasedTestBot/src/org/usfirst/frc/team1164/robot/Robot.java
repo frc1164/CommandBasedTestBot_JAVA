@@ -60,6 +60,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Position 3", 3);
 		m_chooser.addObject("Testing", 4);
 		SmartDashboard.putData("Positions", m_chooser);
+		
+		CameraServer.getInstance().addAxisCamera("10.11.64.13");
 
 		
 	}
