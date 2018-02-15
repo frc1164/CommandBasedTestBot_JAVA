@@ -96,12 +96,4 @@ public class Chassis extends Subsystem {
 		Left2.set(0);
 	}
 	
-	public void DriveMotors(double[] Motors) {
-		Right1.set(Motors[0]);
-		Right2.set(Motors[1]);
-		Left1.set(Motors[2]);
-		Left2.set(Motors[3]);
-
-		
-	}
 }

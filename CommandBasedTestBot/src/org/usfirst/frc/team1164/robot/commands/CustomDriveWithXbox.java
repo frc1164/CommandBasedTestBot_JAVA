@@ -14,7 +14,7 @@ public class CustomDriveWithXbox extends Command {
 	private double LTriggerValue;
 	private double RTriggerValue;
 	
-	private double[] Motors = {0,0,0,0};
+	private double[] Motors = {0,0};
 
 
     public CustomDriveWithXbox() {
@@ -39,23 +39,18 @@ public class CustomDriveWithXbox extends Command {
 		//Drive forward and backward
 		this.Motors[0] = this.RTriggerValue - this.LTriggerValue;
 		this.Motors[1] = this.RTriggerValue - this.LTriggerValue;
-		this.Motors[2] = this.RTriggerValue - this.LTriggerValue;
-		this.Motors[3] = this.RTriggerValue - this.LTriggerValue;
 
 		//Turning slowly (Assuming LAxis is the slow turning axis)
 		this.Motors[0] = (1 - this.RStickValue) * this.Motors[0];
-		this.Motors[1] = (1 - this.RStickValue) * this.Motors[1];
-		this.Motors[2] = (1 + this.RStickValue) * this.Motors[2];
-		this.Motors[3] = (1 + this.RStickValue) * this.Motors[3];
+		this.Motors[1] = (1 + this.RStickValue) * this.Motors[3];
 
 		//Turning quickly (Assuming RAxis is the fast turning axis)
 		this.Motors[0] = this.Motors[0] - (0.5 * this.LStickValue);
-		this.Motors[1] = this.Motors[1] - (0.5 * this.LStickValue);
-		this.Motors[2] = this.Motors[2] + (0.5 * this.LStickValue);
-		this.Motors[3] = this.Motors[3] + (0.5 * this.LStickValue);
+		this.Motors[1] = this.Motors[3] + (0.5 * this.LStickValue);
 		
-		Robot.kChassis.DriveMotors(this.Motors);
-		
+		Robot.kChassis.setRightMotorSpeed(this.Motors[0]);
+		Robot.kChassis.setLeftMotorSpeed(this.Motors[1]);
+
 		SmartDashboard.putNumberArray("Motor Values", this.Motors);
     	
     	
