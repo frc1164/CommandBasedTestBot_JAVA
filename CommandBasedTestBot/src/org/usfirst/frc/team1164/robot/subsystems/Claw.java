@@ -5,12 +5,13 @@ import org.usfirst.frc.team1164.robot.RobotMap;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 public class Claw extends Subsystem{
 	@SuppressWarnings("unused")
 	private Compressor ClawCompressor;
 	private Solenoid sol0, sol1;
-	
+	private AnalogInput Sonar;
 	
 
 	public Claw() {
