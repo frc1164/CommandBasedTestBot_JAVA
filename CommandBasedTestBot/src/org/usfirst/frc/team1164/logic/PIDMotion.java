@@ -2,24 +2,33 @@ package org.usfirst.frc.team1164.logic;
 
 import org.usfirst.frc.team1164.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class PIDMotion {
 	
 	MotionProfiler MP;
 	PIDController P;
 	
-	public PIDMotion() {
-		MP = new MotionProfiler(RobotMap.maxAcceleration, RobotMap.maxVelocity);
+	public PIDMotion(double maxAcceleration, double maxVelocity, double kP, double kI, double kD) {
 		
-		P = new PIDController(0.5, 0, 0);
-		P.setGoal(0);
+		MP = new MotionProfiler(maxAcceleration, maxVelocity);
+		
+		P = new PIDController(kP, kI, kD);
+		P.setNextPoint(0);
 	}
 	
-	public double update() {
+	public double getOutput(double actualPos) {
 		MP.update();
-		return P.getNextVel(MP.getPos());
+		P.setNextPoint(MP.getPos());
+		return P.getOutput(actualPos);
 	}
 	
-	public boolean isDone() {
-		return P.isDone(MP.getPos());
+	public void setEndpoint(double goal) {
+		MP.setEndpoint(goal);
+	}
+	
+	
+	public boolean isDone(int deadbandAllowance) {
+		return P.isDone(deadbandAllowance);
 	}
 }

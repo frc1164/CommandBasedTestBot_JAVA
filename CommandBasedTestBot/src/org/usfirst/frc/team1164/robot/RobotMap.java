@@ -28,6 +28,7 @@ public class RobotMap {
 	
 	public static final double kDistancePerPulse = 0.249364;
 	public static final double timeFrame = 0.002; //seconds
+	public static final double footToCm = 30.48000097536;
 	
 // base robot options
 	// Subsystem names

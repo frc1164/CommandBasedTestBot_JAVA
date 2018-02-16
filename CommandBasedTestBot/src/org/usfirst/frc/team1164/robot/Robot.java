@@ -9,6 +9,7 @@ package org.usfirst.frc.team1164.robot;
 
 import org.usfirst.frc.team1164.logic.autoDecissionMattrix;
 import org.usfirst.frc.team1164.robot.commands.Auto.AutoTurn;
+import org.usfirst.frc.team1164.robot.commands.Auto.DriveForward;
 import org.usfirst.frc.team1164.robot.subsystems.Chassis;
 import org.usfirst.frc.team1164.robot.subsystems.Claw;
 import org.usfirst.frc.team1164.robot.subsystems.Winch;
@@ -95,8 +96,10 @@ public class Robot extends TimedRobot {
 		mode = m_chooser.getSelected();
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
-		autocommand = autoDecissionMattrix.decide(mode, gameData);
-		//autocommand = new AutoTurn(90, 0.25);
+		//autocommand = autoDecissionMattrix.decide(mode, gameData);
+		SmartDashboard.putString("Enabled?", "NO");
+		autocommand = new DriveForward(30);
+		
 		
 		if (autocommand != null) {
 			autocommand.start();
