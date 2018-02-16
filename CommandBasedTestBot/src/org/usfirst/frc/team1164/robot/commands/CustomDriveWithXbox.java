@@ -3,6 +3,7 @@ package org.usfirst.frc.team1164.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team1164.robot.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalOutput;
 
 /**
  *
@@ -15,6 +16,8 @@ public class CustomDriveWithXbox extends Command {
 	private double RTriggerValue;
 	
 	private double[] Motors = {0,0,0,0};
+	
+	private DigitalOutput Arduino = new DigitalOutput(5);
 
 
     public CustomDriveWithXbox() {
@@ -57,6 +60,13 @@ public class CustomDriveWithXbox extends Command {
 		Robot.kChassis.DriveMotors(this.Motors);
 		
 		SmartDashboard.putNumberArray("Motor Values", this.Motors);
+		
+		if (OI.getJoystick().getRawButton(6) == true){
+			Arduino.set(true);
+		}
+		else {
+			Arduino.set(false);
+		}
     	
     	
     }
