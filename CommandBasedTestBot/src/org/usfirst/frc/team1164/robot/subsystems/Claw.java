@@ -4,10 +4,10 @@ import org.usfirst.frc.team1164.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 public class Claw extends Subsystem{
 	private DoubleSolenoid ClawSolenoid;
-	
 	
 
 	public Claw() {
