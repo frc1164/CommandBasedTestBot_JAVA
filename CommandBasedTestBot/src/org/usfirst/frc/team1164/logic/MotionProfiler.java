@@ -26,26 +26,30 @@ public class MotionProfiler {
 		SmartDashboard.putString("start", String.format("%f and %f", aMax, vMax));
 		
 		// creates the acceleration block
-		int ffGainLength = (int) (vMax / (aMax * RobotMap.timeFrame));
+		//int ffGainLength = (int) (vMax / (aMax * RobotMap.timeFrame));
+		int ffGainLength = (int) (1 / (aMax * RobotMap.timeFrame));
 		SmartDashboard.putString("start2", String.format("%d", ffGainLength));
 		double[] ffGain = new double[ffGainLength];
-		for (@SuppressWarnings("unused") double i : ffGain) {
-			i = aMax;
+		for (int i = 0; i < ffGainLength; i++) {
+			ffGain[i] = vMax / ffGainLength;
 		}
 		
 		// creates the position block
 		counter = new PosCounter(ffGainLength);
 		
 		// creates the filter "convultion"
-		double[] fbgains = new double[0];
-		filter = new LinearDigitalFilter(counter, ffGain, fbgains);
+		double[] fbGain = {};
+		//SmartDashboard.putString("ffGains",String.format("%f %f", ffGain[0], ffGain[500]));
+		filter = new LinearDigitalFilter(counter, ffGain, fbGain);
+		filter.reset();
 	}
 	
 	public void update() {
 		// does the next convultion step
 		curVel = filter.pidGet();
 		curPos += curVel * RobotMap.timeFrame;
-		SmartDashboard.putString(String.format("%f %f", curVel, curPos), "bad");
+		SmartDashboard.putString("bad",String.format("%f %f", curVel, curPos));
+		SmartDashboard.putNumber("setPoint", curPos);
 	}
 	
 	public void setEndpoint(double endpoint) {

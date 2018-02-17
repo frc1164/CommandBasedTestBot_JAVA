@@ -79,8 +79,8 @@ public class Chassis extends Subsystem {
 	public double getRightEncoder() {
 		return RightEncoder.getDistance();
 	}
-	public double getAverageEncoder() {
-		return (LeftEncoder.getDistance() * RightEncoder.getDistance())/2;
+	public double getAverageEncoderFt() {
+		return (LeftEncoder.getDistance() + RightEncoder.getDistance())/(2 * RobotMap.countsToFt);
 	}
 	
 	public double getNavxAngle() {

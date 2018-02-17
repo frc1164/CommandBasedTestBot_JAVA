@@ -77,6 +77,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putString("Encoder",String.format("%f", kChassis.getAverageEncoderFt()));
 	}
 
 	/**

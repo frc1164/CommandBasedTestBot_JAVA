@@ -2,6 +2,7 @@ package org.usfirst.frc.team1164.logic;
 
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PosCounter implements PIDSource {
 	
@@ -14,6 +15,10 @@ public class PosCounter implements PIDSource {
 	
 	public PosCounter(int gap) {
 		this.gap = gap;
+		itrNum = 0;
+		endPoint = 0;
+		lastItrPos = -gap - 1;
+		lastItrNeg = -gap - 1;
 	}
 	
 	public void setEndPoint(int endPoint) {
@@ -34,29 +39,32 @@ public class PosCounter implements PIDSource {
 
 	@Override
 	public double pidGet() {
+		double output;
 		itrNum++;
 		if (curPosition < endPoint) {
 			if (itrNum - lastItrNeg >= gap) {
-				curPosition = itrNum;
+				curPosition++;
 				lastItrPos = itrNum;
-				return 1;
+				output = 1;
 			}
 			else {
-				return 0;
+				output = 0;
 			}
 		}
 		else if (curPosition == endPoint) {
-			return 0;
+			output = 0;
 		}
 		else {
 			if (itrNum - lastItrPos >= gap) {
 				curPosition--;
 				lastItrNeg = itrNum;
-				return -1;
+				output = -1;
 			}
 			else {
-				return 0;
+				output = 0;
 			}
 		}
+		SmartDashboard.putString("posCounter Output",String.format("%f", output));
+		return output;
 	}
 }
