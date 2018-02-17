@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Preferences;
 
 
 /**
@@ -99,7 +100,8 @@ public class Robot extends TimedRobot {
 		
 		//autocommand = autoDecissionMattrix.decide(mode, gameData);
 		SmartDashboard.putString("Enabled?", "NO");
-		autocommand = new DriveForward(30);
+		Preferences pref = Preferences.getInstance();
+		autocommand = new DriveForward(pref.getDouble("DistanceFt", 0.0));
 		
 		
 		if (autocommand != null) {

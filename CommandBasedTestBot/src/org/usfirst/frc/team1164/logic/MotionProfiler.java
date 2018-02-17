@@ -17,7 +17,6 @@ public class MotionProfiler {
 	
 	public MotionProfiler(double aMax, double vMax) {
 		
-		
 		// sets the current position of the robot and endpoint
 		curPos = 0;
 		endpoint = 0;
@@ -46,10 +45,12 @@ public class MotionProfiler {
 	
 	public void update() {
 		// does the next convultion step
+		double srn = 0.001 * (Math.random() - 0.5);
+		
 		curVel = filter.pidGet();
 		curPos += curVel * RobotMap.timeFrame;
 		SmartDashboard.putString("bad",String.format("%f %f", curVel, curPos));
-		SmartDashboard.putNumber("setPoint", curPos);
+		SmartDashboard.putNumber("setPoint", curPos + srn);
 	}
 	
 	public void setEndpoint(double endpoint) {
