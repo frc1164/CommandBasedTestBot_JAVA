@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1164.robot.commands.Auto;
 
 import org.usfirst.frc.team1164.logic.PIDMotion;
+import org.usfirst.frc.team1164.logic.PIDVMotion;
 //import org.usfirst.frc.team1164.logic.Preferences;
 import org.usfirst.frc.team1164.robot.Robot;
 import org.usfirst.frc.team1164.robot.RobotMap;
@@ -22,11 +23,12 @@ public class DriveForward extends Command {
 		requires(Robot.kChassis);
 
 		SmartDashboard.putString("Enabled?", "2");
-		controller = new PIDMotion(pref.getDouble("StraightMaxA", 0.0), 
+		controller = new PIDVMotion(pref.getDouble("StraightMaxA", 0.0), 
 								   pref.getDouble("StraightMaxV", 0.0),
 								   pref.getDouble("StraightP", 0.0),
 								   pref.getDouble("StraightI", 0.0),
-								   pref.getDouble("StraightD", 0.0));										
+								   pref.getDouble("StraightD", 0.0),
+								   pref.getDouble("StraightV", 0.0));										
 												  
 		SmartDashboard.putString("Enabled?", "3");
 		controller.setEndpoint(distance);
@@ -40,20 +42,16 @@ public class DriveForward extends Command {
 	public void execute() {
 		double srn = 0.001 * (Math.random() - 0.5);
 		
-		SmartDashboard.putString("Enabled?", "5");
 		double actualPos = Robot.kChassis.getAverageEncoderFt();
-		SmartDashboard.putString("Enabled?", "6");
 		
 		double speed = controller.getOutput(actualPos);
-		SmartDashboard.putString("Enabled?", "7");
-		
 		
 		Robot.kChassis.setLeftMotorSpeed(speed);
 		Robot.kChassis.setRightMotorSpeed(speed);
 		
 		
 		SmartDashboard.putNumber("Distance", actualPos+srn);
-		SmartDashboard.putNumber("speed", speed);
+		SmartDashboard.putNumber("Speed", speed);
 		SmartDashboard.putNumber("LeftEncoder", Robot.kChassis.getLeftEncoder());
 		SmartDashboard.putNumber("RightEncoder", Robot.kChassis.getRightEncoder());
 	}

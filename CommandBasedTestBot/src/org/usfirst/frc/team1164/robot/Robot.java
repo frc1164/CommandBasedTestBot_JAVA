@@ -64,6 +64,10 @@ public class Robot extends TimedRobot {
 
 		
 	}
+	
+	public void robotPeriodic() {
+		SmartDashboard.putString("Encoder",String.format("%f", kChassis.getAverageEncoderFt()));
+	}
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
@@ -78,7 +82,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putString("Encoder",String.format("%f", kChassis.getAverageEncoderFt()));
 	}
 
 	/**
