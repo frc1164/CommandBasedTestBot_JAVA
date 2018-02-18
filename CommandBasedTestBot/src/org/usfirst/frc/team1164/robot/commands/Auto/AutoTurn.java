@@ -38,6 +38,29 @@ public class AutoTurn extends Command {
 				   						pref.getDouble("TurnV", 0.0));	
     	
     }
+    
+    public AutoTurn(double TurnAngle) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.kChassis);
+    	
+    	Preferences pref = Preferences.getInstance();
+    	
+    	this.TurnAngle = TurnAngle;
+    	//this.Speed = Speed;
+    	
+    	DriverStation.reportError("construct AutoTurn", true);
+    	
+    	turnController = new PIDVMotion(pref.getDouble("TurnMaxA", 0.0), 
+				   						pref.getDouble("TurnMaxV", 0.0),
+				   						pref.getDouble("TurnP", 0.0),
+				   						pref.getDouble("TurnI", 0.0),
+				   						pref.getDouble("TurnD", 0.0),
+				   						pref.getDouble("TurnV", 0.0));	
+    	
+    	turnController.setEndpoint(TurnAngle);
+    	
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() {
