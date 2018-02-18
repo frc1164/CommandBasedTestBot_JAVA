@@ -9,6 +9,8 @@ package org.usfirst.frc.team1164.robot;
 
 import org.usfirst.frc.team1164.robot.commands.CloseClaw;
 import org.usfirst.frc.team1164.robot.commands.OpenClaw;
+import org.usfirst.frc.team1164.robot.commands.SetTransmissionHigh;
+import org.usfirst.frc.team1164.robot.commands.SetTransmissionLow;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -22,11 +24,19 @@ public class OI {
 	public static int remotePort = 0;
 	private static Joystick stick = new Joystick(remotePort);
 	Button buttonOpenClaw = new JoystickButton(stick, 1);
-	Button buttonCloseClaw = new JoystickButton(stick, 2);
+	Button buttonCloseClaw = new JoystickButton(stick, 3);
+
+	Button buttonTransmissionHigh = new JoystickButton(stick, 6);
+	Button buttonTransmissionLow = new JoystickButton(stick, 5);
+	
+	public static int leftPort = 1;
+	public static int rightPort = 5;
 	
 	public OI() {
 		buttonOpenClaw.whenPressed(new OpenClaw());
 		buttonCloseClaw.whenPressed(new CloseClaw());
+		buttonTransmissionHigh.whenPressed(new SetTransmissionHigh());
+		buttonTransmissionLow.whenPressed(new SetTransmissionLow());
 	}
 	
 	public static Joystick getJoystick() {

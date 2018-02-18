@@ -15,8 +15,8 @@ public class Claw extends Subsystem{
 
 	public Claw() {
 		ClawCompressor = new Compressor();
-		sol0 = new Solenoid(RobotMap.CL_canID, RobotMap.CL_sol0ID);
-		sol1 = new Solenoid(RobotMap.CL_canID, RobotMap.CL_sol1ID);
+		sol0 = new Solenoid(RobotMap.CL_canID, RobotMap.CL_forward);
+		sol1 = new Solenoid(RobotMap.CL_canID, RobotMap.CL_backward);
 		
 		sol0.set(false);
 		sol1.set(true);

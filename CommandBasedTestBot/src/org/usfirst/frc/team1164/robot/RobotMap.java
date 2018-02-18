@@ -44,9 +44,11 @@ public class RobotMap {
 	// victors
 	public static int CHV_Left_1 = 2;
 	public static int CHV_Left_2 = 3;
+	public static boolean CHV_LeftInverted = true;
 	
 	public static int CHV_Right_1 = 1;
 	public static int CHV_Right_2 = 4;
+	public static boolean CHV_RightInverted = false;
 	
 	// encoders
 	public static int CHE_Left_channelA = 0;
@@ -57,9 +59,14 @@ public class RobotMap {
 	public static int CHE_Right_channelB = 3;
 	public static boolean CHE_Right_reversed = false;
 	
+	// transmission
+	
+	public static final int CHT_Forward_channel = 2;
+	public static final int CHT_Reverse_channel = 3;
+	
 // claw options
-	public static int CL_sol0ID = 0;
-	public static int CL_sol1ID = 1;
+	public static int CL_forward = 0;
+	public static int CL_backward = 1;
 	public static int CL_canID = 0;
 	
 // winch options

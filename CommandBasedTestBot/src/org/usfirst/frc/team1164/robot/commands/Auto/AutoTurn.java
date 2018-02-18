@@ -60,7 +60,6 @@ public class AutoTurn extends Command {
         	
         	//checks if the positive value of the current angle is greater than the positive value of the target angle, 
         	//indicating it has turned a sufficient amount
-        	Robot.kChassis.Brake();
         	
         	return true;
         }
@@ -71,7 +70,6 @@ public class AutoTurn extends Command {
         	//checks if the negative value of the current angle is less than the negative value of the target angle, 
         	//indicating it has turned a sufficient amount
         	
-        	Robot.kChassis.Brake();
         	
         	return true;
         }

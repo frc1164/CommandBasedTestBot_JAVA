@@ -15,8 +15,8 @@ public class DriveTankWithJoystick extends Command{
 	}
 	
 	public void execute() {
-		Robot.kChassis.setLeftMotorSpeed(OI.getJoystick().getRawAxis(1));
-		Robot.kChassis.setRightMotorSpeed(OI.getJoystick().getRawAxis(3));
+		Robot.kChassis.setLeftMotorSpeed(OI.getJoystick().getRawAxis(OI.leftPort));
+		Robot.kChassis.setRightMotorSpeed(OI.getJoystick().getRawAxis(OI.rightPort));
 	}
 	
 	protected boolean isFinished() {
