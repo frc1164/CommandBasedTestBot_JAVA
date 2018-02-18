@@ -48,9 +48,11 @@ public class Chassis extends Subsystem {
 		RightEncoder.reset();
 		LeftEncoder.setDistancePerPulse(RobotMap.kDistancePerPulse);
 		RightEncoder.setDistancePerPulse(RobotMap.kDistancePerPulse);
-		
-		Right1.setInverted(true);
-		Right2.setInverted(true);
+
+		Right1.setInverted(RobotMap.CHE_Right_reversed);
+		Right2.setInverted(RobotMap.CHE_Right_reversed);
+		Left1.setInverted(RobotMap.CHE_Left_reversed);
+		Left2.setInverted(RobotMap.CHE_Left_reversed);
 		
 		Navx.reset();
 		

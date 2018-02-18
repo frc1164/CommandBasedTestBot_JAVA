@@ -56,11 +56,11 @@ public class RobotMap {
 	// encoders
 	public static int CHE_Left_channelA = 0;
 	public static int CHE_Left_channelB = 1;
-	public static boolean CHE_Left_reversed = true;
+	public static boolean CHE_Left_reversed = false;
 	
 	public static int CHE_Right_channelA = 2;
 	public static int CHE_Right_channelB = 3;
-	public static boolean CHE_Right_reversed = false;
+	public static boolean CHE_Right_reversed = true;
 	
 // claw options
 	public static int CL_sol0ID = 0;
