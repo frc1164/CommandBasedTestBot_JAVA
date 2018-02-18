@@ -21,6 +21,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	public static int remotePort = 0;
 	private static Joystick stick = new Joystick(remotePort);
+	
+	public static int forwardPort = 3;
+	public static int backwardPort = 2;
+	public static int turnPort = 0;
+	public static double turnPercent = 0.5x;
+	
 	Button buttonOpenClaw = new JoystickButton(stick, 1);
 	Button buttonCloseClaw = new JoystickButton(stick, 2);
 	
