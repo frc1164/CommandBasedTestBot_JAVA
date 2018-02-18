@@ -25,7 +25,7 @@ public class OI {
 	public static int forwardPort = 3;
 	public static int backwardPort = 2;
 	public static int turnPort = 0;
-	public static double turnPercent = 0.5x;
+	public static double turnPercent = 0.5;
 	
 	Button buttonOpenClaw = new JoystickButton(stick, 1);
 	Button buttonCloseClaw = new JoystickButton(stick, 2);
