@@ -105,8 +105,8 @@ public class Robot extends TimedRobot {
 		//autocommand = autoDecissionMattrix.decide(mode, gameData);
 		SmartDashboard.putString("Enabled?", "NO");
 		Preferences pref = Preferences.getInstance();
-		//autocommand = new DriveForward(pref.getDouble("DistanceFt", 0.0));
-		autocommand = new AutoTurn(pref.getDouble("TurnDeg", 0.0));
+		autocommand = new DriveForward(pref.getDouble("DistanceFt", 0.0));
+		//autocommand = new AutoTurn(pref.getDouble("TurnDeg", 0.0));
 		
 		
 		if (autocommand != null) {
