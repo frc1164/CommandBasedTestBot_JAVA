@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Preferences;
 public class DriveForward extends Command {
 	private double distance;
 	private PIDMotion controller;
+	private PIDMotion turnController;
 	
 	public DriveForward(double distance) {
 		
@@ -30,13 +31,22 @@ public class DriveForward extends Command {
 								   pref.getDouble("StraightD", 0.0),
 								   pref.getDouble("StraightV", 0.0));										
 												  
+		turnController = new PIDVMotion(pref.getDouble("TurnMaxA", 0.0), 
+					pref.getDouble("TurnMaxV", 0.0),
+					pref.getDouble("TurnP", 0.0),
+					pref.getDouble("TurnI", 0.0),
+					pref.getDouble("TurnD", 0.0),
+					0.0);	
+		
 		SmartDashboard.putString("Enabled?", "3");
 		controller.setEndpoint(distance);
+		turnController.setEndpoint(0.0);
 		SmartDashboard.putString("Enabled?", "4");
 	}
 	
 	public void initialize() {
 		Robot.kChassis.resetEncoders();
+		Robot.kChassis.resetNavx();
 	}
 	
 	public void execute() {
@@ -45,9 +55,12 @@ public class DriveForward extends Command {
 		double actualPos = Robot.kChassis.getAverageEncoderFt();
 		
 		double speed = controller.getOutput(actualPos);
+		double turnCorrect = turnController.getOutput(actualPos);
 		
-		Robot.kChassis.setLeftMotorSpeed(speed);
-		Robot.kChassis.setRightMotorSpeed(speed);
+		double[] speedLR = Robot.kChassis.Mixer(speed, turnCorrect);
+		
+		Robot.kChassis.setLeftMotorSpeed(speedLR[0]);
+		Robot.kChassis.setRightMotorSpeed(speedLR[1]);
 		
 		
 		SmartDashboard.putNumber("Distance", actualPos+srn);

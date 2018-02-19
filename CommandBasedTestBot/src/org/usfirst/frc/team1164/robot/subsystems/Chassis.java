@@ -95,4 +95,25 @@ public class Chassis extends Subsystem {
 		Left1.set(0);
 		Left2.set(0);
 	}
+	public double[] Mixer(double straight, double turn) {
+		double left = turn + straight;
+		double right = -turn + straight;
+		if (left > 1) {
+			right = right - (left - 1);
+			left = 1.0;
+		} else if (left < -1) {
+			right = right - (left + 1);
+			left = -1.0;
+		} else if (right > 1) {
+			left = left - (right -1);
+			right = 1.0;
+		} else {
+			left = left - (right +1);
+			right = -1.0;
+		}
+		
+		double [] answer = {left, right};
+		
+		return answer;
+	}
 }
