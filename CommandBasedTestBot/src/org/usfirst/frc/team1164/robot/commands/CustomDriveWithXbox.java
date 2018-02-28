@@ -46,7 +46,7 @@ public class CustomDriveWithXbox extends Command {
 
 		//Turning quickly (Assuming RAxis is the fast turning axis)
 		this.Motors[0] = this.Motors[0] - (0.5 * this.LStickValue);
-		this.Motors[1] = this.Motors[3] + (0.5 * this.LStickValue);
+		this.Motors[1] = this.Motors[1] + (0.5 * this.LStickValue);
 		
 		Robot.kChassis.setRightMotorSpeed(this.Motors[0]);
 		Robot.kChassis.setLeftMotorSpeed(this.Motors[1]);
