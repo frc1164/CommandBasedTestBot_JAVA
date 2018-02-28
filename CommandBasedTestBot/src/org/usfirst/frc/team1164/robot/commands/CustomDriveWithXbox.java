@@ -42,7 +42,7 @@ public class CustomDriveWithXbox extends Command {
 
 		//Turning slowly (Assuming LAxis is the slow turning axis)
 		this.Motors[0] = (1 - this.RStickValue) * this.Motors[0];
-		this.Motors[1] = (1 + this.RStickValue) * this.Motors[3];
+		this.Motors[1] = (1 + this.RStickValue) * this.Motors[1];
 
 		//Turning quickly (Assuming RAxis is the fast turning axis)
 		this.Motors[0] = this.Motors[0] - (0.5 * this.LStickValue);
