@@ -3,6 +3,7 @@ package org.usfirst.frc.team1164.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team1164.robot.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalOutput;
 
 /**
  *
@@ -14,7 +15,10 @@ public class CustomDriveWithXbox extends Command {
 	private double LTriggerValue;
 	private double RTriggerValue;
 	
+	
+	private DigitalOutput Arduino = new DigitalOutput(5);
 	private double[] Motors = {0,0};
+
 
 
     public CustomDriveWithXbox() {
@@ -46,12 +50,19 @@ public class CustomDriveWithXbox extends Command {
 
 		//Turning quickly (Assuming RAxis is the fast turning axis)
 		this.Motors[0] = this.Motors[0] - (0.5 * this.LStickValue);
-		this.Motors[1] = this.Motors[3] + (0.5 * this.LStickValue);
+		this.Motors[1] = this.Motors[1] + (0.5 * this.LStickValue);
 		
 		Robot.kChassis.setRightMotorSpeed(this.Motors[0]);
 		Robot.kChassis.setLeftMotorSpeed(this.Motors[1]);
 
 		SmartDashboard.putNumberArray("Motor Values", this.Motors);
+		
+		if (OI.getJoystick().getRawButton(6) == true){
+			Arduino.set(true);
+		}
+		else {
+			Arduino.set(false);
+		}
     	
     	
     }
