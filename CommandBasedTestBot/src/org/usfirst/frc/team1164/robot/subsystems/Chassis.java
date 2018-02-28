@@ -11,9 +11,8 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.DriverStation;
 
 
 
@@ -22,7 +21,6 @@ public class Chassis extends Subsystem {
 	private Victor Right1, Right2, Left1, Left2;
 	private Encoder LeftEncoder, RightEncoder;
 	private AHRS Navx;
-	private DoubleSolenoid Transmission;
 	
 
 	@Override
@@ -47,8 +45,6 @@ public class Chassis extends Subsystem {
 		RightEncoder = new Encoder(RobotMap.CHE_Right_channelA, RobotMap.CHE_Right_channelB, 
 				RobotMap.CHE_Right_reversed, Encoder.EncodingType.k2X);
 		
-		Transmission = new DoubleSolenoid(RobotMap.CHT_Forward_channel, RobotMap.CHT_Reverse_channel);
-		
 		LeftEncoder.reset();
 		RightEncoder.reset();
 		LeftEncoder.setDistancePerPulse(RobotMap.kDistancePerPulse);
@@ -61,7 +57,6 @@ public class Chassis extends Subsystem {
 		Left2.setInverted(RobotMap.CHV_Left_Invert);
 		
 		Navx.reset();
-		
 		
 	}
 	
@@ -99,14 +94,6 @@ public class Chassis extends Subsystem {
 		Right2.set(0);
 		Left1.set(0);
 		Left2.set(0);
-	}
-	
-	
-	public void SetLowGear() {
-		Transmission.set(DoubleSolenoid.Value.kForward);
-	}
-	public void SetHighGear() {
-		Transmission.set(DoubleSolenoid.Value.kReverse);
 	}
 	
 }

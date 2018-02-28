@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.Compressor;
 
 
 /**
@@ -37,17 +36,13 @@ public class Robot extends TimedRobot {
 	public static final Winch kWinch = new Winch();
 	
 	public static OI m_oi;
-	
-	private Compressor RobotCompressor;
-
-	
-	
 
 //	private Command m_autonomousCommand;
 	
 //	private Command autoForward;
 	//private Command autoCommand;
 	private Command autocommand;
+	
 	
 	private int mode = 1;
 	private SendableChooser<Integer> m_chooser = new SendableChooser<>();
@@ -68,8 +63,6 @@ public class Robot extends TimedRobot {
 		
 		CameraServer Camera = CameraServer.getInstance();
 		Camera.addAxisCamera("10.11.64.13");
-		
-		RobotCompressor = new Compressor();
 
 		
 	}
