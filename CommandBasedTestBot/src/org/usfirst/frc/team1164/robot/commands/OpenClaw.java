@@ -13,6 +13,7 @@ public class OpenClaw extends Command {
     	requires(Robot.kClaw);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	setInterruptible(false);
     }
 
     // Called just before this Command runs the first time

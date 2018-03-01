@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CloseClaw extends Command {
+public class AutoClaw extends Command {
 
-    public CloseClaw() {
-    	requires(Robot.kClaw);
+    public AutoClaw() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	setInterruptible(false);
+    	requires(Robot.kClaw);
+    	setInterruptible(true);
     }
 
     // Called just before this Command runs the first time
@@ -22,22 +22,26 @@ public class CloseClaw extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.kClaw.Close();
-    	System.out.print("Executing closeclaw");
+    	if (Robot.kClaw.GetUltrasonicVolts() <= 1.3) {
+    		Robot.kClaw.Close();
+    	}
+    	else {
+    		Robot.kClaw.Open();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.print("Close Claw Command ended");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	
     }
 }

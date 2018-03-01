@@ -45,6 +45,7 @@ public class Chassis extends Subsystem {
 		RightEncoder = new Encoder(RobotMap.CHE_Right_channelA, RobotMap.CHE_Right_channelB, 
 				RobotMap.CHE_Right_reversed, Encoder.EncodingType.k2X);
 		
+		
 		LeftEncoder.reset();
 		RightEncoder.reset();
 		LeftEncoder.setDistancePerPulse(RobotMap.kDistancePerPulse);
@@ -95,5 +96,6 @@ public class Chassis extends Subsystem {
 		Left1.set(0);
 		Left2.set(0);
 	}
+	
 	
 }
