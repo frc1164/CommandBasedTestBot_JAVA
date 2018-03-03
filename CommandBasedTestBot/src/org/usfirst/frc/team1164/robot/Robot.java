@@ -61,11 +61,14 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Position 3", 3);
 		m_chooser.addObject("Testing", 4);
 		SmartDashboard.putData("Positions", m_chooser);
+		SmartDashboard.putNumber("LeftEncoder", Robot.kChassis.getLeftEncoder());
+		SmartDashboard.putNumber("RightEncoder", Robot.kChassis.getRightEncoder());
 
 		
 	}
 	
 	public void robotPeriodic() {
+//		SmartDashboard.putString("Enabled", "YES");
 		SmartDashboard.putString("Encoder Avg",String.format("%f", kChassis.getAverageEncoderFt()));
 		SmartDashboard.putString("NavX Angle",String.format("%f", kChassis.getNavxAngle()));
 	}
@@ -82,6 +85,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putNumber("Enabled", Math.random());
 		Scheduler.getInstance().run();
 	}
 
@@ -106,7 +110,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putString("Enabled?", "NO");
 		Preferences pref = Preferences.getInstance();
 		autocommand = new DriveForward(pref.getDouble("DistanceFt", 0.0));
-		//autocommand = new AutoTurn(pref.getDouble("TurnDeg", 0.0));
+//		autocommand = new AutoTurn(pref.getDouble("TurnDeg", 0.0));
 		
 		
 		if (autocommand != null) {

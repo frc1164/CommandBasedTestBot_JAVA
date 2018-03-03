@@ -96,7 +96,7 @@ public class AutoTurn extends Command {
 		Robot.kChassis.setLeftMotorSpeed(speed);
 		Robot.kChassis.setRightMotorSpeed(-speed);
 		
-		//SmartDashboard.putNumber("Distance", actualPos+srn);
+		SmartDashboard.putNumber("Distance", actualTurn+srn);
 		//SmartDashboard.putNumber("speed", speed);
 		//SmartDashboard.putNumber("LeftEncoder", Robot.kChassis.getLeftEncoder());
 		//SmartDashboard.putNumber("RightEncoder", Robot.kChassis.getRightEncoder());

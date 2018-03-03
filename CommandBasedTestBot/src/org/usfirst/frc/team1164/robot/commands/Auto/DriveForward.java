@@ -50,14 +50,17 @@ public class DriveForward extends Command {
 	}
 	
 	public void execute() {
-		double srn = 0.001 * (Math.random() - 0.5);
+		double srn = 0;
+//		srn = 0.001 * (Math.random() - 0.5);
+		
 		
 		double actualPos = Robot.kChassis.getAverageEncoderFt();
 		
 		double speed = controller.getOutput(actualPos);
-		double turnCorrect = turnController.getOutput(actualPos);
+//		actualPos = 0;
+//		double turnCorrect = turnController.getOutput(0);
 		
-		double[] speedLR = Robot.kChassis.Mixer(speed, turnCorrect);
+		double[] speedLR = Robot.kChassis.Mixer(speed, 0);
 		
 		Robot.kChassis.setLeftMotorSpeed(speedLR[0]);
 		Robot.kChassis.setRightMotorSpeed(speedLR[1]);
@@ -65,8 +68,6 @@ public class DriveForward extends Command {
 		
 		SmartDashboard.putNumber("Distance", actualPos+srn);
 		SmartDashboard.putNumber("Speed", speed);
-		SmartDashboard.putNumber("LeftEncoder", Robot.kChassis.getLeftEncoder());
-		SmartDashboard.putNumber("RightEncoder", Robot.kChassis.getRightEncoder());
 	}
 
 	@Override
