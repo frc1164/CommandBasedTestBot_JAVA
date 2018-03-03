@@ -69,8 +69,8 @@ public class RobotMap {
 	public static boolean CHE_Right_reversed = false;
 	
 // claw options
-	public static int CL_sol0ID = 0;
-	public static int CL_sol1ID = 1;
+	public static int CL_ForwardID = 0;
+	public static int CL_ReverseID = 1;
 	public static int CL_canID = 0;
 	
 // winch options
