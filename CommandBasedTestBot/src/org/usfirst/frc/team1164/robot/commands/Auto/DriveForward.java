@@ -1,5 +1,7 @@
 package org.usfirst.frc.team1164.robot.commands.Auto;
 
+import static org.usfirst.frc.team1164.robot.RobotMap.*;
+
 import org.usfirst.frc.team1164.logic.PIDMotion;
 import org.usfirst.frc.team1164.logic.PIDVMotion;
 //import org.usfirst.frc.team1164.logic.Preferences;
@@ -36,7 +38,7 @@ public class DriveForward extends Command {
 					pref.getDouble("TurnP", 0.0),
 					pref.getDouble("TurnI", 0.0),
 					pref.getDouble("TurnD", 0.0),
-					0.0);	
+					pref.getDouble("TurnV", 0.0));	
 		
 		SmartDashboard.putString("Enabled?", "3");
 		controller.setEndpoint(distance);
@@ -58,16 +60,19 @@ public class DriveForward extends Command {
 		
 		double speed = controller.getOutput(actualPos);
 //		actualPos = 0;
-//		double turnCorrect = turnController.getOutput(0);
+//		double turn = turnController.getOutput(0);
+		double turn = 0;
+		double Drive_turnModifier = 0.5;
 		
-		double[] speedLR = Robot.kChassis.Mixer(speed, 0);
+		double LSpeed = speed - (turn < 0 ? (Drive_turnModifier*speed*turn) : 0);
+    	double RSpeed = speed - (turn > 0 ? (Drive_turnModifier*speed*turn) : 0);
 		
-		Robot.kChassis.setLeftMotorSpeed(speedLR[0]);
-		Robot.kChassis.setRightMotorSpeed(speedLR[1]);
+		Robot.kChassis.setLeftMotorSpeed(LSpeed);
+		Robot.kChassis.setRightMotorSpeed(RSpeed);
 		
 		
 		SmartDashboard.putNumber("Distance", actualPos+srn);
-		SmartDashboard.putNumber("Speed", speed);
+		SmartDashboard.putNumber("OutputOfStraightController", speed);
 	}
 
 	@Override
