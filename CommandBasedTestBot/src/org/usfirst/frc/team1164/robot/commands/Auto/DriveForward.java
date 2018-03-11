@@ -58,21 +58,39 @@ public class DriveForward extends Command {
 		
 		double actualPos = Robot.kChassis.getAverageEncoderFt();
 		
-		double speed = controller.getOutput(actualPos);
+		double straight = controller.getOutput(actualPos);
 //		actualPos = 0;
-//		double turn = turnController.getOutput(0);
-		double turn = 0;
-		double Drive_turnModifier = 0.5;
+    	double turn = turnController.getOutput(Robot.kChassis.getNavxAngle());
+//		double turn = 0;
 		
-		double LSpeed = speed - (turn < 0 ? (Drive_turnModifier*speed*turn) : 0);
-    	double RSpeed = speed - (turn > 0 ? (Drive_turnModifier*speed*turn) : 0);
+		//double LSpeed = speed - (turn < 0 ? (Drive_turnModifier*speed*turn) : 0);
+    	//double RSpeed = speed - (turn > 0 ? (Drive_turnModifier*speed*turn) : 0);
 		
-		Robot.kChassis.setLeftMotorSpeed(LSpeed);
-		Robot.kChassis.setRightMotorSpeed(RSpeed);
+    	double left = turn + straight;
+		double right = -turn + straight;
+		if (left > 1) {
+			right = right - (left - 1);
+			left = 1.0;
+		} else if (left < -1) {
+			right = right + (left + 1);
+			left = -1.0;
+		} else if (right > 1) {
+			left = left - (right -1);
+			right = 1.0;
+		} else if (right < -1) {
+			left = left + (right + 1);
+			right = -1.0;
+		}
+    	
+		Robot.kChassis.setLeftMotorSpeed(left);
+		Robot.kChassis.setRightMotorSpeed(right);
 		
 		
 		SmartDashboard.putNumber("Distance", actualPos+srn);
-		SmartDashboard.putNumber("OutputOfStraightController", speed);
+		SmartDashboard.putNumber("OutputOfStraightController", straight);
+		SmartDashboard.putNumber("OutputOfTurnController", turn);
+		SmartDashboard.putNumber("AutoLeftSet", left);
+		SmartDashboard.putNumber("AutoRightSet", right);
 	}
 
 	@Override
