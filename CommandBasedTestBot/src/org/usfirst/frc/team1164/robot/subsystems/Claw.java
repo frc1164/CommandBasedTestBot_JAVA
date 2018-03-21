@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1164.robot.subsystems;
 
 import org.usfirst.frc.team1164.robot.RobotMap;
-import org.usfirst.frc.team1164.robot.commands.AutoClaw;
+//import org.usfirst.frc.team1164.robot.commands.AutoClaw;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -21,8 +21,8 @@ public class Claw extends Subsystem{
 		claw = new DoubleSolenoid(RobotMap.CL_canID, RobotMap.CL_ForwardID, RobotMap.CL_ReverseID);		
 		sonic = new AnalogInput(3);
 		
-		sol0.set(false);
-		sol1.set(true);
+		//sol0.set(false);
+		//sol1.set(true);
 	}
 	
 	
@@ -30,24 +30,24 @@ public class Claw extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new AutoClaw());
+		//setDefaultCommand(new AutoClaw());
 	}
 	
 	public void Close() {
-		sol0.set(false);
-		sol1.set(true);
+		//sol0.set(false);
+		//sol1.set(true);
 	}
 	
 	public void Open() {
-		sol0.set(true);
-		sol1.set(false);
+		//sol0.set(true);
+		//sol1.set(false);
 	}
 	
 	public double GetUltrasonicVolts() {
 		return sonic.getVoltage();
 	}
-	public DoubleSolenoid.Value get(){
-		return 
-	}
+	//public DoubleSolenoid.Value get(){
+	//	return 
+	//}
 
 }

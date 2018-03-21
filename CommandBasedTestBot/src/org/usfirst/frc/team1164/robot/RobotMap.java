@@ -78,4 +78,12 @@ public class RobotMap {
 	public static int WIV_winch1 = 5;
 	public static int WIV_winch2 = 6;
 	public static int WIV_winch3 = 7;
+	
+// Arduino light option
+	public static final int Arduino_Port = 6;
+	public static final int RED_PULSE = 2000;
+	public static final int BLUE_PULSE = 4000;
+	
+			
+	
 }

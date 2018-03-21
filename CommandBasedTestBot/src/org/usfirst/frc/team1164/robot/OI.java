@@ -9,7 +9,8 @@ package org.usfirst.frc.team1164.robot;
 
 import org.usfirst.frc.team1164.robot.commands.CloseClaw;
 import org.usfirst.frc.team1164.robot.commands.OpenClaw;
-
+import org.usfirst.frc.team1164.robot.commands.Lights_To_Blue;
+import org.usfirst.frc.team1164.robot.commands.Lights_To_Red;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -25,9 +26,14 @@ public class OI {
 	Button buttonOpenClaw = new JoystickButton(stick, 1);
 	Button buttonCloseClaw = new JoystickButton(stick, 2);
 	
+	Button buttonRedLight = new JoystickButton(stick, 4);
+	Button buttonBlueLight = new JoystickButton(stick, 3);
+	
 	public OI() {
 		buttonOpenClaw.whenPressed(new OpenClaw());
 		buttonCloseClaw.whenPressed(new CloseClaw());
+		buttonRedLight.whenPressed(new Lights_To_Red());
+		buttonBlueLight.whenPressed(new Lights_To_Blue());
 	}
 	
 	public static Joystick getJoystick() {
