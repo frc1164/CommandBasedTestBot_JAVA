@@ -15,10 +15,12 @@ import org.usfirst.frc.team1164.robot.subsystems.Winch;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.I2C;
 
 
 /**
@@ -35,6 +37,9 @@ public class Robot extends TimedRobot {
 	public static final Winch kWinch = new Winch();
 	
 	public static OI m_oi;
+
+	I2C reflectivitySensors = new I2C(Port.kOnboard, 8);
+	byte[] SensorValues;
 
 //	private Command m_autonomousCommand;
 	
@@ -75,7 +80,9 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
+		reflectivitySensors.readOnly(SensorValues, 1);
+		SmartDashboard.putRaw("SensorValues", SensorValues);
+
 	}
 
 	/**
