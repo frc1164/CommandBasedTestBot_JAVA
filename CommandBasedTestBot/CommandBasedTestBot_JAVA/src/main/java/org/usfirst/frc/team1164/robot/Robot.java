@@ -15,12 +15,14 @@ import org.usfirst.frc.team1164.robot.subsystems.Winch;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.I2C;
+
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Port;
+
 
 
 /**
@@ -38,8 +40,7 @@ public class Robot extends TimedRobot {
 	
 	public static OI m_oi;
 
-	I2C reflectivitySensors = new I2C(Port.kOnboard, 8);
-	byte[] SensorValues;
+	
 
 //	private Command m_autonomousCommand;
 	
@@ -50,6 +51,8 @@ public class Robot extends TimedRobot {
 	
 	private int mode = 1;
 	private SendableChooser<Integer> m_chooser = new SendableChooser<>();
+
+	SerialPort Arduino = new SerialPort(9600, SerialPort.Port.kUSB1);
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -64,6 +67,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Position 3", 3);
 		m_chooser.addObject("Testing", 4);
 		SmartDashboard.putData("Positions", m_chooser);
+		
 
 		
 	}
@@ -80,9 +84,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		reflectivitySensors.readOnly(SensorValues, 1);
-		SmartDashboard.putRaw("SensorValues", SensorValues);
-
+		System.out.println(Arduino.readString());
+		SmartDashboard.putString("Arduino", Arduino.readString());
 	}
 
 	/**
