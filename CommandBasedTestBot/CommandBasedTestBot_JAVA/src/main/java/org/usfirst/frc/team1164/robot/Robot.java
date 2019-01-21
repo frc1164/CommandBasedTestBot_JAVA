@@ -12,6 +12,7 @@ import org.usfirst.frc.team1164.robot.commands.Auto.AutoTurn;
 import org.usfirst.frc.team1164.robot.subsystems.Chassis;
 import org.usfirst.frc.team1164.robot.subsystems.Claw;
 import org.usfirst.frc.team1164.robot.subsystems.Winch;
+import org.usfirst.frc.team1164.robot.subsystems.LineSensor;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+
 
 
 
@@ -37,6 +39,7 @@ public class Robot extends TimedRobot {
 	public static final Chassis kChassis = new Chassis();
 	public static final Claw kClaw = new Claw();
 	public static final Winch kWinch = new Winch();
+	public static final LineSensor kLineSensor = new LineSensor(); 
 	
 	public static OI m_oi;
 
@@ -84,8 +87,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		System.out.println(Arduino.readString());
-		SmartDashboard.putString("Arduino", Arduino.readString());
+		SmartDashboard.putNumber("Arduino", kLineSensor.getRaw());
 	}
 
 	/**
