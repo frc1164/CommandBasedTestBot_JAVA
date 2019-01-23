@@ -31,9 +31,11 @@ public class LineSensor extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public int getRaw(){
-    String S = arduino.readString();
-    return Integer.parseInt(S);
+  public void getRaw(){
+    System.out.println(arduino.readString());
+    //return arduino.readString();
+
   }// of method getRaw
+
   
 }// of Subsystem LineSeneor

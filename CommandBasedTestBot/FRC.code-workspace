@@ -1,5 +1,9 @@
 {
-	"folders": [],
+	"folders": [
+		{
+			"path": "CommandBasedTestBot_JAVA"
+		}
+	],
 	"settings": {
 		"java.configuration.updateBuildConfiguration": "automatic"
 	}
