@@ -32,9 +32,26 @@ public class LineSensor extends Subsystem {
   }
 
   public void getRaw(){
-    System.out.println(arduino.readString());
-    //return arduino.readString();
+    //print raw serial data
+    //System.out.println(arduino.readString());
 
+    //validation serial data
+    //format: int1  int2  int3  int4  int5  pos
+    String recevedString = arduino.readString();
+    int[] sensorValues = new int[5];
+
+    try {
+      for(int i = 0; i < 5; i++){//read data into an array
+        sensorValues[i] = Integer.parseInt(receivedString.substring(0,receivedString.indexOf('\t')));
+        receivedString = recevedString.substring(receivedString.indexOf('\t'));
+        System.out.print(sensorValues[i]);
+      }// end data processing
+      System.out.println();
+    } catch (StringIndexOutOfBoundsException e) {
+      //TODO: handle exception
+      return;
+    }// end try_catch
+  
   }// of method getRaw
 
   
