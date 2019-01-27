@@ -20,9 +20,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.CameraServer;
 
 
 
@@ -55,8 +53,6 @@ public class Robot extends TimedRobot {
 	private int mode = 1;
 	private SendableChooser<Integer> m_chooser = new SendableChooser<>();
 
-	SerialPort Arduino = new SerialPort(9600, SerialPort.Port.kUSB1);
-
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -71,7 +67,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Testing", 4);
 		SmartDashboard.putData("Positions", m_chooser);
 		
-
+		CameraServer.getInstance().addAxisCamera("10.11.64.50:8081");
 		
 	}
 
