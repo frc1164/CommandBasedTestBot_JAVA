@@ -85,7 +85,6 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		//SmartDashboard.putString("Arduino", kLineSensor.getRaw());
 		//System.out.println(kLineSensor.getRaw());
-		kLineSensor.getRaw();
 	}
 
 	/**

@@ -34,13 +34,10 @@ public class LineSensor extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public void getRaw(){
+  public String getData(){
     //print raw serial data
     //System.out.println(arduino.readString());
-    
-    //validation serial data
-    //format: int1  int2  int3  int4  int5  pos
-    
+    return arduino.readString();
   }// of method getRaw
 
   
