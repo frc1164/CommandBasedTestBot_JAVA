@@ -9,6 +9,7 @@ package org.usfirst.frc.team1164.robot;
 
 import org.usfirst.frc.team1164.logic.autoDecissionMattrix;
 import org.usfirst.frc.team1164.robot.commands.Auto.AutoTurn;
+import org.usfirst.frc.team1164.robot.commands.Auto.findLine;
 import org.usfirst.frc.team1164.robot.subsystems.Chassis;
 import org.usfirst.frc.team1164.robot.subsystems.Claw;
 import org.usfirst.frc.team1164.robot.subsystems.Winch;
@@ -40,16 +41,7 @@ public class Robot extends TimedRobot {
 	public static final LineSensor kLineSensor = new LineSensor(); 
 	
 	public static OI m_oi;
-
-	
-
-//	private Command m_autonomousCommand;
-	
-//	private Command autoForward;
-	//private Command autoCommand;
-	private Command autocommand;
-	
-	
+	private Command autoLine; 
 	private int mode = 1;
 	private SendableChooser<Integer> m_chooser = new SendableChooser<>();
 
@@ -61,13 +53,14 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 
-		m_chooser.addDefault("Position 1", 1);
-		m_chooser.addObject("Position 2", 2);
-		m_chooser.addObject("Position 3", 3);
-		m_chooser.addObject("Testing", 4);
-		SmartDashboard.putData("Positions", m_chooser);
+
+		// m_chooser.addDefault("Position 1", 1);
+		// m_chooser.addObject("Position 2", 2);
+		// m_chooser.addObject("Position 3", 3);
+		// m_chooser.addObject("Testing", 4);
+		// SmartDashboard.putData("Positions", m_chooser);
 		
-		CameraServer.getInstance().addAxisCamera("10.11.64.50:8081");
+		//CameraServer.getInstance().addAxisCamera("10.11.64.50:8081");
 		
 	}
 
@@ -83,8 +76,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		//SmartDashboard.putString("Arduino", kLineSensor.getRaw());
-		//System.out.println(kLineSensor.getRaw());
+		
 	}
 
 	/**
@@ -101,15 +93,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 
-		mode = m_chooser.getSelected();
-		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		// mode = m_chooser.getSelected();
+		// String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
-		autocommand = autoDecissionMattrix.decide(mode, gameData);
-		//autocommand = new AutoTurn(90, 0.25);
-		
-		if (autocommand != null) {
-			autocommand.start();
-		}
+		// autocommand = autoDecissionMattrix.decide(mode, gameData);
 		
 	}
 	
@@ -128,8 +115,8 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autocommand != null) {
-			autocommand.cancel();
+		if (autoLine != null) {
+			autoLine.cancel();
 		}
 	}
 

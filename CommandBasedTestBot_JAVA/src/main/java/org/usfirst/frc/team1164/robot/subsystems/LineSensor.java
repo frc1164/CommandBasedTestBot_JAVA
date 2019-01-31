@@ -9,6 +9,7 @@ package org.usfirst.frc.team1164.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+import java.util.concurrent.DelayQueue;
 import java.util.regex.Pattern;
 
 import edu.wpi.first.wpilibj.SerialPort;
@@ -22,10 +23,11 @@ public class LineSensor extends Subsystem {
   // here. Call these from Commands.
 
   private static final int BAUDRATE = 9600;
+  private static final int bufferSize = 5;
   private SerialPort arduino = new SerialPort(BAUDRATE, SerialPort.Port.kUSB1);
-
+  private static Double prevValue = 0.0;
   public LineSensor(){
-
+    arduino.setReadBufferSize(bufferSize);
   }// of constructor
 
   @Override
@@ -34,11 +36,38 @@ public class LineSensor extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public String getData(){
-    //print raw serial data
-    //System.out.println(arduino.readString());
-    return arduino.readString();
+  public String getString(){
+    //return String from buffer, of length MaxStringLength
+    //String string = new String(getRaw(), arduino.getBytesReceived() - (bufferSize+1), bufferSize);
+    String string = arduino.readString();
+    return string;
   }// of method getRaw
 
+  public byte[] getRaw(){
+    //return raw data as byte array
+    return arduino.read(arduino.getBytesReceived());
+  }//end getRaw
+
+  public Double getDouble(){
+    String dataIn = getString();
+    Double parseData;
+    if(dataIn.indexOf('-') == -1){// if data in is positive
+      if(dataIn.indexOf('%') == 0){
+        parseData = Double.parseDouble(dataIn.substring(1,4));
+      } else if(dataIn.indexOf('%') == 4){
+        parseData = Double.parseDouble(dataIn.substring(0, 3));
+      } else{
+        return prevValue;
+      }//end inner else_if 
+    } else{//if data in is negative
+      if(dataIn.charAt(0) == '-'){
+        parseData = Double.parseDouble(dataIn.substring(0,3));
+      } else{
+        return prevValue;
+      }//end inner if_else
+    }//end outer if_else
+    prevValue = parseData;
+    return parseData;
+  }//end getDouble
   
 }// of Subsystem LineSeneor

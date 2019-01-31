@@ -7,6 +7,10 @@
 
 package org.usfirst.frc.team1164.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -36,9 +40,13 @@ public class RobotMap {
 	 * Claw = kClaw
 	 * Winch = kWinch
 	 */
+
+//Shuffleboard datax
 	
 	
 // controller options
+
+	
 	
 // chassis options
 	// victors

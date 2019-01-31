@@ -11,6 +11,7 @@ import org.usfirst.frc.team1164.robot.commands.CloseClaw;
 import org.usfirst.frc.team1164.robot.commands.OpenClaw;
 import org.usfirst.frc.team1164.robot.commands.SetTransmissionHigh;
 import org.usfirst.frc.team1164.robot.commands.SetTransmissionLow;
+import org.usfirst.frc.team1164.robot.commands.Auto.findLine;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -30,13 +31,17 @@ public class OI {
 	Button buttonTransmissionLow = new JoystickButton(stick, 5);
 	
 	public static int leftPort = 1;
-	public static int rightPort = 5;
+	public static int rightPort = 3;
+
+	Button target = new JoystickButton(stick, 2);
 	
 	public OI() {
 		buttonOpenClaw.whenPressed(new OpenClaw());
 		buttonCloseClaw.whenPressed(new CloseClaw());
 		buttonTransmissionHigh.whenPressed(new SetTransmissionHigh());
 		buttonTransmissionLow.whenPressed(new SetTransmissionLow());
+
+		target.whileHeld(new findLine());
 	}
 	
 	public static Joystick getJoystick() {
