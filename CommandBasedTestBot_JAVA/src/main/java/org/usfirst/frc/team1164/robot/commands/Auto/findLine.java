@@ -40,7 +40,7 @@ public class findLine extends Command {
   @Override
   protected void execute() {
  
-    offset = Robot.kLineSensor.getDouble();
+    offset = Robot.kLineSensor.newGetDouble();
     System.out.println(offset + " " + (Math.signum(offset) * maxSpeed.getDouble(0.15)));
     Robot.kChassis.setLeftMotorSpeed(Math.signum(offset) * maxSpeed.getDouble(0.15));
     Robot.kChassis.setRightMotorSpeed(Math.signum(offset) * maxSpeed.getDouble(0.15));
