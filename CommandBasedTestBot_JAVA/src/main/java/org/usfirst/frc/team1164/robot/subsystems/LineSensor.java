@@ -32,7 +32,7 @@ public class LineSensor extends Subsystem {
     arduino = new SerialPort(BAUDRATE, SerialPort.Port.kUSB1);
     arduino.setReadBufferSize(bufferSize);
     prevValue = 0.0;
-    endLineChar = '%';
+    endLineChar = '\n';
     maxStringLen = 6;
   }// of default constructor
 
@@ -45,6 +45,7 @@ public class LineSensor extends Subsystem {
   public String getString(){
     //return String from buffer
     String string = arduino.readString();
+    System.out.println("string: " + string);
     return string;
   }// of method getRaw
 
@@ -52,36 +53,9 @@ public class LineSensor extends Subsystem {
     //return raw data as byte array
     return arduino.read(arduino.getBytesReceived());
   }//end getRaw
-  /**
-   * <p>Read in a Double value from the Serial Line</p>
-   * 
-   * @return the parsed double from the Serial line
-   */
+ 
   public Double getDouble(){
     String dataIn = getString();
-    Double parseData;
-    if(dataIn.indexOf('-') == -1){// if data in is positive
-      if(dataIn.indexOf(endLineChar) == 0){
-        parseData = Double.parseDouble(dataIn.substring(1,4));
-      } else if(dataIn.indexOf(endLineChar) == 4){
-        parseData = Double.parseDouble(dataIn.substring(0, 3));
-      } else{
-        return prevValue;
-      }//end inner else_if 
-    } else{//if data in is negative
-      if(dataIn.charAt(0) == '-'){
-        parseData = Double.parseDouble(dataIn.substring(0,3));
-      } else{
-        return prevValue;
-      }//end inner if_else
-    }//end outer if_else
-    prevValue = parseData;
-    return parseData;
-  }//end getDouble
-
-  public Double newGetDouble(){
-    String dataIn = getString();
-    Double parseData;
     if(dataIn.length() < maxStringLen*2) return prevValue; //if data is too short to parse use last recorded value
 
     int index;

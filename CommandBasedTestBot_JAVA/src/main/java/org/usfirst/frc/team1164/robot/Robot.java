@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-
+		SmartDashboard.putData(kChassis);
 
 		// m_chooser.addDefault("Position 1", 1);
 		// m_chooser.addObject("Position 2", 2);

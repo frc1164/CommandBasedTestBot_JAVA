@@ -9,10 +9,14 @@ package org.usfirst.frc.team1164.robot.commands.Auto;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team1164.logic.PID;
+import org.usfirst.frc.team1164.logic.Util;
 import org.usfirst.frc.team1164.robot.Robot;
 import org.usfirst.frc.team1164.robot.RobotMap;
 
@@ -24,26 +28,35 @@ public class findLine extends Command {
 
   private ShuffleboardTab tab = Shuffleboard.getTab("Options");
   private NetworkTableEntry maxSpeed = tab.add("Max Speed", 0.15).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
-  
+  private NetworkTableEntry P, I, D;
+  private PID linePID; 
   public findLine() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.kChassis);
+    P = tab.add("kP", 0).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
+    I = tab.add("kI", 0).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
+    D = tab.add("kD", 0).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
+    linePID = new PID(P.getDouble(0.0), I.getDouble(0.0), D.getDouble(0.0));
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    linePID.setGains(P.getDouble(0.0), I.getDouble(0.0), D.getDouble(0.0));
+    linePID.reset();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
  
-    offset = Robot.kLineSensor.newGetDouble();
-    System.out.println(offset + " " + (Math.signum(offset) * maxSpeed.getDouble(0.15)));
-    Robot.kChassis.setLeftMotorSpeed(Math.signum(offset) * maxSpeed.getDouble(0.15));
-    Robot.kChassis.setRightMotorSpeed(Math.signum(offset) * maxSpeed.getDouble(0.15));
+    offset = Robot.kLineSensor.getDouble();
+    //System.out.println(offset + " " + (linePID.update(0, offset)));
+
+    SmartDashboard.putNumber("PID Output", linePID.update(0, offset));
+    Robot.kChassis.setLeftMotorSpeed(Util.limit(linePID.update(0, offset), maxSpeed.getDouble(0.0)));
+    Robot.kChassis.setRightMotorSpeed(Util.limit(linePID.update(0, offset), maxSpeed.getDouble(0.0)));
   
   }//end execute
 
