@@ -27,7 +27,7 @@ public class findLine extends Command {
   final double tolerance = 0.1;
 
   private ShuffleboardTab tab = Shuffleboard.getTab("Options");
-  private NetworkTableEntry maxSpeed = tab.add("Max Speed", 0.15).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
+  private NetworkTableEntry maxSpeed = tab.add("Max Speed", 0.15).withWidget(BuiltInWidgets.kTextView).getEntry();
   private NetworkTableEntry P, I, D;
   private PID linePID; 
   public findLine() {
