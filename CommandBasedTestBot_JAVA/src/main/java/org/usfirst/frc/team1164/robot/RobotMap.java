@@ -66,6 +66,12 @@ public class RobotMap {
 	public static int CHE_Right_channelA = 2;
 	public static int CHE_Right_channelB = 3;
 	public static boolean CHE_Right_reversed = false;
+
+	//PID
+	public static final double P_Gain = 0.06;
+	public static final double I_Gain = 0.0001;
+	public static final double D_Gain = 0.2;
+
 	
 	// transmission
 	

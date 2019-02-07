@@ -37,40 +37,41 @@ public class findLine extends Command {
     P = tab.add("kP", 0).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
     I = tab.add("kI", 0).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
     D = tab.add("kD", 0).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
-    linePID = new PID(P.getDouble(0.0), I.getDouble(0.0), D.getDouble(0.0));
-  }
+    linePID = new PID(P.getDouble(RobotMap.P_Gain), I.getDouble(RobotMap.I_Gain), D.getDouble(RobotMap.D_Gain));
+    System.out.println(this);
+  }//end constructor
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    linePID.setGains(P.getDouble(0.0), I.getDouble(0.0), D.getDouble(0.0));
     linePID.reset();
-  }
+    linePID.setGains(P.getDouble(RobotMap.P_Gain), I.getDouble(RobotMap.I_Gain), D.getDouble(RobotMap.D_Gain));
+  }//end initialize
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
  
     offset = Robot.kLineSensor.getDouble();
-    //System.out.println(offset + " " + (linePID.update(0, offset)));
-
-    SmartDashboard.putNumber("PID Output", linePID.update(0, offset));
-    Robot.kChassis.setLeftMotorSpeed(Util.limit(linePID.update(0, offset), maxSpeed.getDouble(0.0)));
-    Robot.kChassis.setRightMotorSpeed(Util.limit(linePID.update(0, offset), maxSpeed.getDouble(0.0)));
+    Robot.kChassis.setLeftMotorSpeed(-Util.limit(linePID.update(0, offset), maxSpeed.getDouble(0.0)));
+    Robot.kChassis.setRightMotorSpeed(-Util.limit(linePID.update(0, offset), maxSpeed.getDouble(0.0)));
   
+    SmartDashboard.putNumber("PID Output", linePID.update(0, offset));
+    SmartDashboard.putNumber("offset", offset);
+    SmartDashboard.putNumber("Motor Speed", Util.limit(linePID.update(0, offset), maxSpeed.getDouble(0.0)));
+
   }//end execute
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;//(Math.abs(offset) < tolerance);
+    return (Math.abs(offset) < tolerance);
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("Terminated");
-  }
+  }//end end 
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run

@@ -12,7 +12,7 @@ package org.usfirst.frc.team1164.logic;
  */
 public class Util {
     public static double limit(double max, double value){
-        if(value >= max) return max;
+        if(Math.abs(value) >= max) return max;
         return value;
     }//end limit
 }//end class util
