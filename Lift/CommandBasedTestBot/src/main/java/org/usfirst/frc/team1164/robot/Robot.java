@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
 	public void robotPeriodic(){
 
 		SmartDashboard.putNumber("Encoder Raw Values", kLift.getRaw());
-		SmartDashboard.putData("Make Lift Go Up", new MakeLiftGoUp());
+		
 	}
 
 	/**
@@ -142,6 +142,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putData("Make Lift Go Up", new MakeLiftGoUp());
 	}
 
 	/**
