@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1164.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import org.usfirst.frc.team1164.robot.Robot;
 
 /**
  * Add your docs here.

@@ -39,6 +39,8 @@ public class RobotMap {
 	
 	
 // controller options
+
+	public static int operator_grabber_axis = 0;
 	
 // chassis options
 	// victors
@@ -61,12 +63,12 @@ public class RobotMap {
 	
 	// transmission
 	
-	public static final int CHT_Forward_channel = 2;
-	public static final int CHT_Reverse_channel = 3;
+	public static final int CHT_Forward_channel = 4;
+	public static final int CHT_Reverse_channel = 7;
 	
 // claw options
-	public static int CL_forward = 0;
-	public static int CL_backward = 1;
+	public static int CL_forward = 5;
+	public static int CL_backward = 6;
 	public static int CL_canID = 0;
 	
 // winch options

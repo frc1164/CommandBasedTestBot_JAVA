@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1164.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import org.usfirst.frc.team1164.robot.Robot;
 
 /**
  * Add your docs here.
@@ -25,7 +26,7 @@ public class Brake extends InstantCommand {
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.kEndEffector.Brake()
+    Robot.kEndEffector.Brake();
   }
 
 }

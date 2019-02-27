@@ -11,6 +11,13 @@ import org.usfirst.frc.team1164.robot.commands.CloseClaw;
 import org.usfirst.frc.team1164.robot.commands.OpenClaw;
 import org.usfirst.frc.team1164.robot.commands.SetTransmissionHigh;
 import org.usfirst.frc.team1164.robot.commands.SetTransmissionLow;
+import org.usfirst.frc.team1164.robot.commands.EjectBall;
+import org.usfirst.frc.team1164.robot.commands.DropEndEffector;
+import org.usfirst.frc.team1164.robot.commands.ExtendHatchGrabber;
+import org.usfirst.frc.team1164.robot.commands.GrabBall;
+import org.usfirst.frc.team1164.robot.commands.RetractHatchGrabber;
+import org.usfirst.frc.team1164.robot.commands.RaiseEndEffector;
+import org.usfirst.frc.team1164.robot.commands.Brake;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -23,36 +30,29 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	public static int remotePort = 0;
 	private static Joystick stick = new Joystick(remotePort);
+	public static Joystick operator = new Joystick(1);
 	Button buttonOpenClaw = new JoystickButton(stick, 1);
 	Button buttonCloseClaw = new JoystickButton(stick, 3);
 
 	Button buttonTransmissionHigh = new JoystickButton(stick, 6);
 	Button buttonTransmissionLow = new JoystickButton(stick, 5);
 
-	Button DropEndEffector = new JoystickButton(stick, 2);
-	Button RaiseEndEffector = new JoystickButton(stick, 3);
-	Button ExtendHatchGrabber = new JoystickButton(stick, 1);
-	Button RetractHatchGrabber = new JoystickButton(stick, 4);
-	Button GrabBall = new JoystickButton(stick, 7);
-	Button EjectBall = new JoystickButotn(stick, 8);
+	Button DropEndEffector = new JoystickButton(operator, 2);
+	Button RaiseEndEffector = new JoystickButton(operator, 3);
+	Button ExtendHatchGrabber = new JoystickButton(operator, 1);
+	Button RetractHatchGrabber = new JoystickButton(operator, 4);
+	
 
 	public static int leftPort = 1;
 	public static int rightPort = 5;
 	
 	public OI() {
-		buttonOpenClaw.whenPressed(new OpenClaw());
-		buttonCloseClaw.whenPressed(new CloseClaw());
-		buttonTransmissionHigh.whenPressed(new SetTransmissionHigh());
-		buttonTransmissionLow.whenPressed(new SetTransmissionLow());
-
-		DropEndEffector.whenPressed(new DropEndEffector());
+		
+		DropEndEffector.whileHeld(new DropEndEffector());
 		RaiseEndEffector.whenPressed(new RaiseEndEffector());
 		ExtendHatchGrabber.whenPressed(new ExtendHatchGrabber());
-		RetractHatchGrabber.whenPressed(new retractHatchGrabber());
-		GrabBall.whenPressed(new GrabBall());
-		Grabball.whenReleased(new Brake());
-		Ejectball.whenPressed(new Ejectball());
-		EjectBall.whenReleased(new Brake());
+		RetractHatchGrabber.whenPressed(new RetractHatchGrabber());
+		
 	}
 	
 	public static Joystick getJoystick() {

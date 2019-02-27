@@ -12,9 +12,9 @@ public class Winch extends Subsystem {
 	private Joystick Stick;
 	
 	public Winch() {
-		Winch1 = new Victor(5);
-		Winch2 = new Victor(6);
-		Winch3 = new Victor(7);
+		Winch1 = new Victor(17);
+		Winch2 = new Victor(14);
+		Winch3 = new Victor(12);
 	}
 
 	@Override

@@ -8,7 +8,14 @@
 package org.usfirst.frc.team1164.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+
+import org.usfirst.frc.team1164.robot.OI;
+import org.usfirst.frc.team1164.robot.commands.RunGrabberWithJoystick;
+
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 
 
@@ -18,7 +25,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class EndEffector extends Subsystem {
   VictorSP Victor0;
   DoubleSolenoid Sol0, Sol1;
-  DigitalInput Limitswitch0, Limitswitch1;
+  DigitalInput LimitSwitch0, LimitSwitch1;
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -28,14 +35,17 @@ public class EndEffector extends Subsystem {
   
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new RunGrabberWithJoystick(OI.operator));
   }
 
   public EndEffector(){
-    Victor0 = new VictorSP(7);
+    Victor0 = new VictorSP(6);
     Sol0 = new DoubleSolenoid(0,1);
     Sol1 = new DoubleSolenoid(2,3);
-    Limitswitch0 = new DigitalInput(4);
-    Limitswitch1 = new DigitalInput(5);
+    LimitSwitch0 = new DigitalInput(4);
+    LimitSwitch1 = new DigitalInput(5);
+
+    Victor0.setInverted(true);
   }
 
   public void DropEndEffector() {
