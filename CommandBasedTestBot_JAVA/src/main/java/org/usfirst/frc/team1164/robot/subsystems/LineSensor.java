@@ -7,9 +7,9 @@
 
 package org.usfirst.frc.team1164.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
@@ -18,18 +18,27 @@ public class LineSensor extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
+  
   private static final int BAUDRATE = 9600;
   private int bufferSize = 1;
   private SerialPort arduino;
-  private Double prevValue;
-  private char endLineChar;
-  private int maxStringLen;
+  private int maxStringLen = 7;
+  private int prevValue = 0;
+  private char endLineChar = '\n';
+
+
   public LineSensor(){
-    arduino = new SerialPort(BAUDRATE, SerialPort.Port.kUSB1);
-    arduino.setReadBufferSize(bufferSize);
-    prevValue = 0.0;
-    endLineChar = '\n';
-    maxStringLen = 6;
+
+    try{
+      arduino = new SerialPort(BAUDRATE, SerialPort.Port.kUSB1);
+      arduino.setReadBufferSize(bufferSize);
+
+    } catch(Exception e){
+      arduino = null;
+      System.out.println("Lost Arduino");
+    }
+    
+
   }// of default constructor
 
   @Override
@@ -41,7 +50,6 @@ public class LineSensor extends Subsystem {
   public String getString(){
     //return String from buffer
     String string = arduino.readString();
-    System.out.println("string: " + string);
     return string;
   }// of method getRaw
 
@@ -49,8 +57,8 @@ public class LineSensor extends Subsystem {
     //return raw data as byte array
     return arduino.read(arduino.getBytesReceived());
   }//end getRaw
- 
-  public Double getDouble(){
+
+  public int getInt(){
     String dataIn = getString();
     if(dataIn.length() < maxStringLen*2) return prevValue; //if data is too short to parse use last recorded value
 
@@ -59,7 +67,8 @@ public class LineSensor extends Subsystem {
     dataIn = dataIn.substring(0,index);
     index = dataIn.lastIndexOf(endLineChar);
     dataIn = dataIn.substring(index+1);
-    return Double.parseDouble(dataIn);
-    }//end robustGetDouble
-  
+    SmartDashboard.putNumber("Line Sensor", Integer.parseInt(dataIn));
+    return Integer.parseInt(dataIn);
+    }//end getDouble
+
 }// of Subsystem LineSeneor

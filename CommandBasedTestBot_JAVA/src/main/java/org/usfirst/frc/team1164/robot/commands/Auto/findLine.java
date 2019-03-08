@@ -23,12 +23,13 @@ import org.usfirst.frc.team1164.robot.RobotMap;
 
 public class findLine extends Command {
 
-  double offset;
+  double speed;
+  int offset, goal;
   final double tolerance = 0.1;
 
   private ShuffleboardTab tab = Shuffleboard.getTab("Options");
   private NetworkTableEntry maxSpeed = tab.add("Max Speed", 0.15).withWidget(BuiltInWidgets.kTextView).getEntry();
-  private NetworkTableEntry P, I, D;
+  private NetworkTableEntry P, I, D, PIDgoal;
   private PID linePID; 
   public findLine() {
     // Use requires() here to declare subsystem dependencies
@@ -37,6 +38,7 @@ public class findLine extends Command {
     P = tab.add("kP", 0).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
     I = tab.add("kI", 0).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
     D = tab.add("kD", 0).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
+    PIDgoal = tab.add("PID Goal", 0).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
     linePID = new PID(P.getDouble(RobotMap.P_Gain), I.getDouble(RobotMap.I_Gain), D.getDouble(RobotMap.D_Gain));
     System.out.println(this);
   }//end constructor
@@ -51,14 +53,15 @@ public class findLine extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
- 
-    offset = Robot.kLineSensor.getDouble();
-    Robot.kChassis.setLeftMotorSpeed(-Util.limit(linePID.update(0, offset), maxSpeed.getDouble(0.0)));
-    Robot.kChassis.setRightMotorSpeed(-Util.limit(linePID.update(0, offset), maxSpeed.getDouble(0.0)));
+    goal = (int)PIDgoal.getDouble(7500);
+    offset = Robot.kLineSensor.getInt();
+    speed = 0.01* linePID.update(goal, offset);
+    Robot.kChassis.setLeftMotorSpeed(speed);
+    Robot.kChassis.setRightMotorSpeed(speed);
   
-    SmartDashboard.putNumber("PID Output", linePID.update(0, offset));
+    SmartDashboard.putNumber("PID Output", linePID.update(goal, offset));
     SmartDashboard.putNumber("offset", offset);
-    SmartDashboard.putNumber("Motor Speed", Util.limit(linePID.update(0, offset), maxSpeed.getDouble(0.0)));
+    SmartDashboard.putNumber("Motor Speed", speed);
 
   }//end execute
 
