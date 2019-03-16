@@ -11,6 +11,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team1164.logic.MotionProfiler;
 import org.usfirst.frc.team1164.logic.PID;
@@ -23,13 +24,13 @@ public class MakeLiftGoUp extends Command {
   private PID liftPID;
 
   private double r;
-  private double v, vmax, amax;
+
   private double out,speed;
 
   private double p,i,d;
 
-  public ShuffleboardTab tuning = Shuffleboard.getTab("PID");
-  private NetworkTableEntry kP, kI, kD, kV, V_MAX, A_MAX;
+  private double v, vmax, amax;
+  
 
 
   public double K_V;
@@ -43,27 +44,12 @@ public class MakeLiftGoUp extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
-   
-    
-    V_MAX = tuning.add("VMax", 1).getEntry();
-    vmax = V_MAX.getDouble(0.0);
-
-    A_MAX = tuning.add("VMax", 1).getEntry();
-    amax = A_MAX.getDouble(0.0);
-
-    kP = tuning.add("kP", 0).getEntry();
-    p = kP.getDouble(0.0);
-  
-    kI = tuning.add("kI", 0).getEntry();
-    i = kI.getDouble(0.0);
-
-    kD = tuning.add("kD", 0).getEntry();
-    d = kD.getDouble(0.0);
-
-    kV = tuning.add("kV", 0).getEntry();
-    K_V = kV.getDouble(0.0);
-
+    vmax = Robot.kLift.V_MAX.getDouble(0.0);
+    amax = Robot.kLift.A_MAX.getDouble(0.0);
+    p = Robot.kLift.kP.getDouble(0.0);
+    i = Robot.kLift.kI.getDouble(0.0);
+    d = Robot.kLift.kD.getDouble(0.0);
+    K_V = Robot.kLift.kV.getDouble(0.0);
 
     liftProfiler = new MotionProfiler(amax, vmax);
     liftPID = new PID(p,i,d);
@@ -86,9 +72,10 @@ public class MakeLiftGoUp extends Command {
     liftProfiler.update(); //updates references 
 
     r = liftProfiler.getPos(); //Incremental update on where it wants to be
+    SmartDashboard.putNumber("Motion Profiler Output", r);
     out = liftPID.update(r, Robot.kLift.getDistance()); //Updates references and current positions
     speed = out + (K_V * liftProfiler.getVel()); //
-
+    SmartDashboard.putNumber("Current Speed", speed);
     Robot.kLift.setLiftSpeed(speed); 
   }
 

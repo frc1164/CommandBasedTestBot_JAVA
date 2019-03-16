@@ -33,10 +33,10 @@ public class OI {
 	public static int rightPort = 5;
 	
 	public OI() {
-		buttonOpenClaw.whenPressed(new OpenClaw());
-		buttonCloseClaw.whenPressed(new CloseClaw());
-		buttonTransmissionHigh.whenPressed(new SetTransmissionHigh());
-		buttonTransmissionLow.whenPressed(new SetTransmissionLow());
+		//buttonOpenClaw.whenPressed(new OpenClaw());
+		//buttonCloseClaw.whenPressed(new CloseClaw());
+		//buttonTransmissionHigh.whenPressed(new SetTransmissionHigh());
+		//buttonTransmissionLow.whenPressed(new SetTransmissionLow());
 	}
 	
 	public static Joystick getJoystick() {

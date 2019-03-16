@@ -8,8 +8,10 @@
 package org.usfirst.frc.team1164.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-
-
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Victor;
 
@@ -26,14 +28,42 @@ public class Lift extends Subsystem {
   private Encoder liftEncoder;
   private double distance;
 
+  public NetworkTableEntry kP, kI, kD, kV, V_MAX, A_MAX;
+  public ShuffleboardTab tuning = Shuffleboard.getTab("PID");
+  
+
+
 public Lift(){
 
   liftMotor = new Victor(RobotMap.LiftMotor);
-
+  SmartDashboard.putData("Lift Motor", liftMotor);
+  
   liftEncoder = new Encoder(RobotMap.Lift_Encoder_ChannelA, RobotMap.Lift_Encoder_ChannelB, true, Encoder.EncodingType.k4X);
+  liftEncoder.setDistancePerPulse(3.57/127.2);
   liftEncoder.setMinRate(10);
-  liftEncoder.setDistancePerPulse(1);
+  //liftEncoder.setDistancePerPulse(1);
   liftEncoder.reset();
+
+   
+  V_MAX = tuning.add("VMax", 1).getEntry();
+  
+
+  A_MAX = tuning.add("AMax", 1).getEntry();
+  
+
+  kP = tuning.add("kP", 0).getEntry();
+  
+
+  kI = tuning.add("kI", 0).getEntry();
+  
+
+  kD = tuning.add("kD", 0).getEntry();
+  
+
+  kV = tuning.add("kV", 0).getEntry();
+  
+
+  
 
 }
 
@@ -41,6 +71,7 @@ public Lift(){
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    
   }
  
   public double getRaw(){
@@ -56,7 +87,7 @@ public Lift(){
   }
 
   public void setLiftSpeed(double speed){
-
+    SmartDashboard.putNumber("Lift Motor Speed", speed);
     liftMotor.set(speed);
 
   }

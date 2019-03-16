@@ -77,7 +77,7 @@ public class RobotMap {
 
 //lift
 
-	public static int LiftMotor = 7;
+	public static int LiftMotor = 9;
 	public static int Lift_Encoder_ChannelA = 6;
 	public static int Lift_Encoder_ChannelB = 7;
 

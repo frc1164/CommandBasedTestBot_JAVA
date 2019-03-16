@@ -33,9 +33,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
 	
-	public static final Chassis kChassis = new Chassis();
-	public static final Claw kClaw = new Claw();
-	public static final Winch kWinch = new Winch();
+	//public static final Chassis kChassis = new Chassis();
+	//public static final Claw kClaw = new Claw();
+	//public static final Winch kWinch = new Winch();
 	public static final Lift kLift = new Lift();
 
 	public static OI m_oi;
@@ -71,6 +71,7 @@ public class Robot extends TimedRobot {
 	public void robotPeriodic(){
 
 		SmartDashboard.putNumber("Encoder Raw Values", kLift.getRaw());
+		
 		
 	}
 
@@ -133,7 +134,7 @@ public class Robot extends TimedRobot {
 		if (autocommand != null) {
 			autocommand.cancel();
 		}
-
+		SmartDashboard.putData("Make Lift Go Up", new MakeLiftGoUp());
 	}
 
 	/**
@@ -142,7 +143,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putData("Make Lift Go Up", new MakeLiftGoUp());
+		
 	}
 
 	/**
@@ -150,7 +151,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		SmartDashboard.putNumber("Left Encoder", kChassis.GetLeftEncoder());
-		SmartDashboard.putNumber("Right Encoder", kChassis.GetRightEncoder());
+		//SmartDashboard.putNumber("Left Encoder", kChassis.GetLeftEncoder());
+		//SmartDashboard.putNumber("Right Encoder", kChassis.GetRightEncoder());
 	}
 }
