@@ -36,8 +36,6 @@ import edu.wpi.first.wpilibj.CameraServer;
 public class Robot extends TimedRobot {
 	
 	public static final Chassis kChassis = new Chassis();
-	public static final Claw kClaw = new Claw();
-	public static final Winch kWinch = new Winch();
 	public static final LineSensor kLineSensor = new LineSensor(); 
 	
 	public static OI m_oi;
